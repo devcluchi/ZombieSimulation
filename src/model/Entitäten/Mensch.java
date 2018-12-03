@@ -38,24 +38,10 @@ public class Mensch {
             }
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO test_person (firstname, lastname, currentage) " +
-                    "VALUES ('Peter', 'Pan', 14);");
-            stmt.execute("INSERT INTO test_person (firstname, lastname, currentage) " +
-                    "VALUES ('Jack', 'Ripperlein', 32);");
-            stmt.execute("INSERT INTO test_person (firstname, lastname, currentage) " +
-                    "VALUES ('Olaf', 'Steiner', 52);");
-            stmt.execute("INSERT INTO test_person (firstname, lastname, currentage) " +
-                    "VALUES ('Klaus', 'Kloppmann', 41);");
-            stmt.execute("INSERT INTO test_person (firstname, lastname, currentage) " +
-                    "VALUES ('Bese', 'Flor', 16);");
+            stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt) " +
+                    "VALUES (false,false,0,0,false,true,true);");
 
-            // Gib die gesamte Tabelle test_person aus
-            ResultSet results = stmt.executeQuery("SELECT * FROM test_person;");
 
-            System.out.println("ID(primary key) - Vorname - Nachname - Alter");
-            while(results.next()){
-                System.out.println(results.getString(1) + " - " +results.getString(2) + " - " + results.getString(3) + " - " + results.getString(4));
-            }
 
         } catch(Exception e){
             e.printStackTrace();

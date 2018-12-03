@@ -2,16 +2,16 @@ package model.Entitäten;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Zombie {
+public class Trinken {
 
-    public Zombie(){
+    public Trinken(){
+
 
     }
 
-    public void ausbruch(){
+    public void makeWater(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -22,9 +22,9 @@ public class Zombie {
 
             // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
             try {
-                stmt.execute("CREATE TABLE Zom_Zombie (" +
-                        "zID int NOT NULL AUTO_INCREMENT," +
-                        "infiziert int NOT NULL ," +
+                stmt.execute("CREATE TABLE Zom_Water (" +
+                        "wID int NOT NULL AUTO_INCREMENT," +
+                        "Vorrat int NOT NULL ," +
                         "PRIMARY KEY (zID)" +
                         ");");
             } catch (Exception e){
@@ -32,7 +32,7 @@ public class Zombie {
             }
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Zombie (infiziert) " +
+            stmt.execute("INSERT INTO Zom_Wasser (Vorrat) " +
                     "VALUES (10);");
 
         } catch(Exception e){
@@ -40,7 +40,5 @@ public class Zombie {
         }
 
 
-
     }
-
 }

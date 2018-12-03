@@ -17,6 +17,6 @@ public class Config {
     public final static boolean INFO_MESSAGES = true;
 
     // Frameworkversion
-    public final static String VERSION = "AOS-KNB-Graphical-Java-Framework - 1.7 - 08.12.2017";
+    public final static String VERSION = "ZombieSimulation";
 
 }

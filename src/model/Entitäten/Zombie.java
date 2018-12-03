@@ -5,10 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Mensch {
+public class Zombie {
 
-    public Mensch(){
-
+    public Zombie(){
 
     }
 
@@ -23,15 +22,10 @@ public class Mensch {
 
             // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
             try {
-                stmt.execute("CREATE TABLE Zom_Menschen (" +
-                        "mID int NOT NULL AUTO_INCREMENT," +
-                        "krank boolean FALSE ," +
-                        "hunger int NOT > 10 AND NOT < 0," +
-                        "durst int  NOT > 5 AND NOT < 0," +
-                        "bewaffnet boolean FALSE ,"+
-                        "untergekommen boolean TRUE, "+
-                        "lebt TRUE "+
-                        "PRIMARY KEY (pID)" +
+                stmt.execute("CREATE TABLE Zom_Zombie (" +
+                        "zID int NOT NULL AUTO_INCREMENT," +
+                        "infiziert int NOT NULL ," +
+                        "PRIMARY KEY (zID)" +
                         ");");
             } catch (Exception e){
                 System.out.println("Keine neue Tabelle angelegt.");

@@ -1,7 +1,10 @@
 package model.Entitäten;
 
+import com.mysql.cj.protocol.Resultset;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Waffen {
@@ -36,10 +39,19 @@ public class Waffen {
             stmt.execute("INSERT INTO Zom_Waffen (Bestand,Effektivität) " +
                     "VALUES (10,10);");
 
+            ResultSet bestand = stmt.executeQuery("SELECT Bestand FROM Zom_Waffen;");
+
         } catch(Exception e){
             e.printStackTrace();
         }
 
 
+        }
+
+
+
+
+
+
+
     }
-}

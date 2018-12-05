@@ -7,6 +7,8 @@ import java.sql.Statement;
 
 public class Mensch {
 
+    private boolean bewaffnen;
+
     public Mensch(){
 
 
@@ -46,6 +48,35 @@ public class Mensch {
         } catch(Exception e){
             e.printStackTrace();
         }
+
+
+
+    }
+
+    public void bewaffnen(){
+
+
+    }
+
+    public void MediNutzen(){
+
+
+    }
+
+
+    public void RessourcenNutzung(){
+
+
+    }
+
+
+    public void NutztiereVerarbeiten(){
+
+
+    }
+
+
+    public void UnterkunftSuchen(){
 
 
 

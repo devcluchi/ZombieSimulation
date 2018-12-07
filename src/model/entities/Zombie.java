@@ -1,20 +1,16 @@
-package model.Entitäten;
-
-import com.mysql.cj.protocol.Resultset;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Waffen {
+public class Zombie {
 
-    public Waffen(){
-
+    public Zombie(){
 
     }
 
-    public void generateWaffen(){
+    public void ausbruch(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -22,26 +18,16 @@ public class Waffen {
             Statement stmt = con.createStatement();
 
 
-
-
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Waffen (Bestand,Effektivität) " +
-                    "VALUES (10,10);");
-
-            ResultSet bestand = stmt.executeQuery("SELECT Bestand FROM Zom_Waffen;");
+            stmt.execute("INSERT INTO Zom_Zombie (infiziert) " +
+                    "VALUES (10);");
 
         } catch(Exception e){
             e.printStackTrace();
         }
 
 
-        }
-
-
-
-
-
-
 
     }
+
+}

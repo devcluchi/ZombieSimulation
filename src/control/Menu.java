@@ -1,9 +1,8 @@
 package control;
 
-import model.Entitäten.Mensch;
-import model.Entitäten.TableMaker;
-import model.Entitäten.Wetter;
-import model.framework.GraphicalObject;
+import model.entities.Mensch;
+import model.entities.TableMaker;
+import model.entities.Wetter;
 import view.framework.DrawTool;
 import view.framework.DrawableObject;
 

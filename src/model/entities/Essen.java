@@ -1,17 +1,18 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class Medikament {
+public class Essen {
 
-    public Medikament(){
+    public Essen(){
 
 
     }
 
-    public void generateMedi(){
+
+    public void generateFood(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -19,11 +20,9 @@ public class Medikament {
             Statement stmt = con.createStatement();
 
 
-
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Medikament (wirksamkeit,Vorrat) " +
-                    "VALUES (10,10);");
+            stmt.execute("INSERT INTO Zom_Essen (Vorrat) " +
+                    "VALUES (20);");
 
         } catch(Exception e){
             e.printStackTrace();

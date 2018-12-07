@@ -1,17 +1,19 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Zombie {
+public class Mensch {
 
-    public Zombie(){
+    private boolean bewaffnen;
+
+    public Mensch(){
+
 
     }
 
-    public void ausbruch(){
+    public void babiesmachen(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -19,13 +21,48 @@ public class Zombie {
             Statement stmt = con.createStatement();
 
 
+
+            // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
+
+
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Zombie (infiziert) " +
-                    "VALUES (10);");
+            stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt) " +
+                    "VALUES (false,false,0,0,false,true,true);");
+
+
 
         } catch(Exception e){
             e.printStackTrace();
         }
+
+
+
+    }
+
+    public void bewaffnen(){
+
+
+    }
+
+    public void MediNutzen(){
+
+
+    }
+
+
+    public void RessourcenNutzung(){
+
+
+    }
+
+
+    public void NutztiereVerarbeiten(){
+
+
+    }
+
+
+    public void UnterkunftSuchen(){
 
 
 

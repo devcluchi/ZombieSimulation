@@ -1,20 +1,17 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Mensch {
+public class Nutztiere {
 
-    private boolean bewaffnen;
-
-    public Mensch(){
-
+    public Nutztiere(){
 
     }
 
-    public void babiesmachen(){
+    public void generateNutztiere(){
+
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -27,46 +24,13 @@ public class Mensch {
 
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt) " +
-                    "VALUES (false,false,0,0,false,true,true);");
-
-
+            stmt.execute("INSERT INTO Zom_N (Bestand, Verarbeitungsqualität) " +
+                    "VALUES (10,10);");
 
         } catch(Exception e){
             e.printStackTrace();
         }
 
 
-
     }
-
-    public void bewaffnen(){
-
-
-    }
-
-    public void MediNutzen(){
-
-
-    }
-
-
-    public void RessourcenNutzung(){
-
-
-    }
-
-
-    public void NutztiereVerarbeiten(){
-
-
-    }
-
-
-    public void UnterkunftSuchen(){
-
-
-
-    }
-
 }

@@ -1,4 +1,4 @@
-package model.Entitäten;
+package model.entities;
 
 public class Notizen {
 

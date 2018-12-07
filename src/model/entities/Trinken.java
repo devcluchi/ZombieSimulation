@@ -1,17 +1,17 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class Nutztiere {
+public class Trinken {
 
-    public Nutztiere(){
+    public Trinken(){
+
 
     }
 
-    public void generateNutztiere(){
-
+    public void makeWater(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -20,12 +20,9 @@ public class Nutztiere {
 
 
 
-            // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
-
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_N (Bestand, Verarbeitungsqualität) " +
-                    "VALUES (10,10);");
+            stmt.execute("INSERT INTO Zom_Wasserquelle (Vorrat) " +
+                    "VALUES (10);");
 
         } catch(Exception e){
             e.printStackTrace();

@@ -1,18 +1,18 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Umwelt {
+public class Waffen {
 
-    public Umwelt(){
+    public Waffen(){
 
 
     }
 
-
-    public void generateUmwelt(){
+    public void generateWaffen(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -20,14 +20,26 @@ public class Umwelt {
             Statement stmt = con.createStatement();
 
 
+
+
+
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Zombie (Zustand) " +
-                    "VALUES ('Normal');");
+            stmt.execute("INSERT INTO Zom_Waffen (Bestand,Effektivität) " +
+                    "VALUES (10,10);");
+
+            ResultSet bestand = stmt.executeQuery("SELECT Bestand FROM Zom_Waffen;");
 
         } catch(Exception e){
             e.printStackTrace();
         }
 
 
+        }
+
+
+
+
+
+
+
     }
-}

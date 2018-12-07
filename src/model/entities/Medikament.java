@@ -1,18 +1,17 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class Raubtiere {
+public class Medikament {
 
-    public Raubtiere(){
+    public Medikament(){
 
 
     }
 
-
-    public void generateRaubtiere(){
+    public void generateMedi(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -22,9 +21,8 @@ public class Raubtiere {
 
 
 
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Raubtiere (Gefrässigkeit,Häufigkeit) " +
+            stmt.execute("INSERT INTO Zom_Medikament (wirksamkeit,Vorrat) " +
                     "VALUES (10,10);");
 
         } catch(Exception e){
@@ -33,8 +31,4 @@ public class Raubtiere {
 
 
     }
-
-
-
-
 }

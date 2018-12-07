@@ -1,17 +1,18 @@
-package model.Entitäten;
+package model.entities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class Trinken {
+public class Umwelt {
 
-    public Trinken(){
+    public Umwelt(){
 
 
     }
 
-    public void makeWater(){
+
+    public void generateUmwelt(){
 
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
@@ -19,10 +20,9 @@ public class Trinken {
             Statement stmt = con.createStatement();
 
 
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Wasserquelle (Vorrat) " +
-                    "VALUES (10);");
+            stmt.execute("INSERT INTO Zom_Zombie (Zustand) " +
+                    "VALUES ('Normal');");
 
         } catch(Exception e){
             e.printStackTrace();

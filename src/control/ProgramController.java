@@ -1,9 +1,7 @@
 package control;
 
 import control.framework.UIController;
-import view.framework.DrawableObject;
-
-import java.awt.*;
+import model.screens.MainScreen;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -16,7 +14,6 @@ public class ProgramController {
     // Referenzen
     private UIController uiController;  // diese Referenz soll auf ein Objekt der Klasse uiController zeigen. Über dieses Objekt wird das Fenster gesteuert.
 
-    private Menu menu;
 
     /**
      * Konstruktor
@@ -34,9 +31,8 @@ public class ProgramController {
      */
     public void startProgram(){
 
-        menu = new Menu();
-        uiController.drawObject(menu);
 
+        new MainScreen(uiController);
     }
 
     /**

@@ -30,6 +30,8 @@ public class DrawFrame extends JFrame {
         panels.add(activePanel);
         add(activePanel);
         addKeyListener(activePanel);
+        setUndecorated(true
+        );
         setLocation(x,y);
         setSize(width,height);
         setTitle(name);

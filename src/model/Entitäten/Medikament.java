@@ -20,17 +20,6 @@ public class Medikament {
 
 
 
-            // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
-            try {
-                stmt.execute("CREATE TABLE Zom_Medikament (" +
-                        "mID int NOT NULL AUTO_INCREMENT," +
-                        "wirksamkeit int  ," +
-                        "Vorrat int,"+
-                        "PRIMARY KEY (zID)" +
-                        ");");
-            } catch (Exception e){
-                System.out.println("Keine neue Tabelle angelegt.");
-            }
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
             stmt.execute("INSERT INTO Zom_Medikament (wirksamkeit,Vorrat) " +

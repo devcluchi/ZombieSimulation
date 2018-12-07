@@ -20,18 +20,6 @@ public class Essen {
             Statement stmt = con.createStatement();
 
 
-
-            // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
-            try {
-                stmt.execute("CREATE TABLE Zom_Essen (" +
-                        "eID int NOT NULL AUTO_INCREMENT," +
-                        "Vorrat int ," +
-                        "PRIMARY KEY (eID)" +
-                        ");");
-            } catch (Exception e){
-                System.out.println("Keine neue Tabelle angelegt.");
-            }
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
             stmt.execute("INSERT INTO Zom_Essen (Vorrat) " +
                     "VALUES (20);");

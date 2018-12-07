@@ -24,20 +24,7 @@ public class Mensch {
 
 
             // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
-            try {
-                stmt.execute("CREATE TABLE Zom_Menschen (" +
-                        "mID int NOT NULL AUTO_INCREMENT," +
-                        "krank boolean FALSE ," +
-                        "hunger int NOT > 10 AND NOT < 0," +
-                        "durst int  NOT > 5 AND NOT < 0," +
-                        "bewaffnet boolean FALSE ,"+
-                        "untergekommen boolean TRUE, "+
-                        "lebt TRUE "+
-                        "PRIMARY KEY (pID)" +
-                        ");");
-            } catch (Exception e){
-                System.out.println("Keine neue Tabelle angelegt.");
-            }
+
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
             stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt) " +

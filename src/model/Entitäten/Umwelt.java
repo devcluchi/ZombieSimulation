@@ -20,18 +20,6 @@ public class Umwelt {
             Statement stmt = con.createStatement();
 
 
-
-            // Lege eine neue Tabelle (wirft Exception, falls Tabelle schon vorhanden)
-            try {
-                stmt.execute("CREATE TABLE Zom_Umwelt (" +
-                        "uID int NOT NULL AUTO_INCREMENT," +
-                        "Zustand varchar (255)," +
-                        "PRIMARY KEY (uID)" +
-                        ");");
-            } catch (Exception e){
-                System.out.println("Keine neue Tabelle angelegt.");
-            }
-
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
             stmt.execute("INSERT INTO Zom_Zombie (Zustand) " +
                     "VALUES ('Normal');");

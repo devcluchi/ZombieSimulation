@@ -2,6 +2,7 @@ package control;
 
 import model.Entitäten.Mensch;
 import model.Entitäten.TableMaker;
+import model.Entitäten.Wetter;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 import view.framework.DrawableObject;
@@ -12,6 +13,7 @@ public class Menu implements DrawableObject {
 
     private TableMaker tableMaker;
     private Mensch mensch;
+    private Wetter wetter;
 
 
     public Menu(){

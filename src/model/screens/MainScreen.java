@@ -1,7 +1,9 @@
 package model.screens;
 
 import control.framework.UIController;
+import model.entities.Mensch;
 import model.entities.TableMaker;
+import model.entities.Wetter;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -12,10 +14,14 @@ public class MainScreen extends GraphicalObject {
     BufferedImage image;
     Button[] buttons;
     TableMaker tableMaker;
+    private Mensch mensch;
+    private Wetter wetter;
 
     public MainScreen(UIController uiController) {
 
         tableMaker= new TableMaker();
+        mensch = new Mensch();
+        wetter = new Wetter();
 
         image = createNewImage("assets/imagesw/screens/main.png");
         createButtons(uiController);

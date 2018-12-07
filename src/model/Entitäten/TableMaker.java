@@ -27,16 +27,16 @@ public class TableMaker {
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Wetter (" +
-                        "wID int NOT NULL AUTO_INCREMENT," +
+                        "weID int NOT NULL AUTO_INCREMENT," +
                         "Zustand varchar (255)," +
-                        "PRIMARY KEY (zID)" +
+                        "PRIMARY KEY (weID)" +
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Waffen (" +
                         "wID int NOT NULL AUTO_INCREMENT," +
                         "Bestand int," +
                         "Effektivität int, "+
-                        "PRIMARY KEY (zID)" +
+                        "PRIMARY KEY (wID)" +
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Umwelt (" +
@@ -46,23 +46,23 @@ public class TableMaker {
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Wasserquelle (" +
-                        "wID int NOT NULL AUTO_INCREMENT," +
+                        "waID int NOT NULL AUTO_INCREMENT," +
                         "Vorrat int NOT NULL ," +
-                        "PRIMARY KEY (zID)" +
+                        "PRIMARY KEY (waID)" +
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Raubtiere (" +
                         "rID int NOT NULL AUTO_INCREMENT," +
                         "Gefrässigkeit int," +
                         "Häufigkeit int,"+
-                        "PRIMARY KEY (zID)" +
+                        "PRIMARY KEY (rID)" +
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Nutztiere (" +
                         "nID int NOT NULL AUTO_INCREMENT," +
                         "Bestand int," +
                         "Verarbeitungsqualität int,"+
-                        "PRIMARY KEY (zID)" +
+                        "PRIMARY KEY (nID)" +
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Essen (" +
@@ -75,18 +75,18 @@ public class TableMaker {
                         "mID int NOT NULL AUTO_INCREMENT," +
                         "wirksamkeit int  ," +
                         "Vorrat int,"+
-                        "PRIMARY KEY (zID)" +
+                        "PRIMARY KEY (mID)" +
                         ");");
 
                 stmt.execute("CREATE TABLE Zom_Menschen (" +
-                        "mID int NOT NULL AUTO_INCREMENT," +
+                        "meID int NOT NULL AUTO_INCREMENT," +
                         "krank boolean FALSE ," +
                         "hunger int NOT > 10 AND NOT < 0," +
                         "durst int  NOT > 5 AND NOT < 0," +
                         "bewaffnet boolean FALSE ,"+
                         "untergekommen boolean TRUE, "+
                         "lebt TRUE "+
-                        "PRIMARY KEY (pID)" +
+                        "PRIMARY KEY (meID)" +
                         ");");
             } catch (Exception e){
                 System.out.println("Keine neue Tabelle angelegt.");

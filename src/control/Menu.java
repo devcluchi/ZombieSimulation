@@ -1,5 +1,6 @@
 package control;
 
+import model.Entitäten.Mensch;
 import model.Entitäten.TableMaker;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
@@ -10,6 +11,8 @@ import java.awt.event.MouseEvent;
 public class Menu implements DrawableObject {
 
     private TableMaker tableMaker;
+    private Mensch mensch;
+
 
     public Menu(){
 
@@ -23,6 +26,7 @@ public class Menu implements DrawableObject {
         //Müssen wir noch machen
 
     }
+
 
     @Override
     public void draw(DrawTool drawTool) {

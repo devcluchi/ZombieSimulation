@@ -20,6 +20,17 @@ public class TableMaker {
             Statement stmt = con.createStatement();
 
             try {
+
+                stmt.execute("CREATE TABLE Zom_Menschen (" +
+                        "meID int NOT NULL AUTO_INCREMENT," +
+                        "krank bit ," +
+                        "hunger int ," +
+                        "durst int ," +
+                        "bewaffnet bit ,"+
+                        "untergekommen bit  , "+
+                        "lebt bit   ,"+
+                        "PRIMARY KEY (meID)" +
+                        ");");
                 stmt.execute("CREATE TABLE Zom_Zombie (" +
                         "zID int NOT NULL AUTO_INCREMENT," +
                         "infiziert int NOT NULL ," +
@@ -78,16 +89,8 @@ public class TableMaker {
                         "PRIMARY KEY (mID)" +
                         ");");
 
-                stmt.execute("CREATE TABLE Zom_Menschen (" +
-                        "meID int NOT NULL AUTO_INCREMENT," +
-                        "krank boolean FALSE ," +
-                        "hunger int NOT > 10 AND NOT < 0," +
-                        "durst int  NOT > 5 AND NOT < 0," +
-                        "bewaffnet boolean FALSE ,"+
-                        "untergekommen boolean TRUE, "+
-                        "lebt TRUE "+
-                        "PRIMARY KEY (meID)" +
-                        ");");
+
+
             } catch (Exception e){
                 System.out.println("Keine neue Tabelle angelegt.");
             }

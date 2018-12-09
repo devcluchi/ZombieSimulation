@@ -23,8 +23,10 @@ public class MainScreen extends GraphicalObject {
         mensch = new Mensch();
         wetter = new Wetter();
 
-        image = createNewImage("assets/imagesw/screens/main.png");
+        image = createNewImage("assets/images/screens/main.png");
+        uiController.drawObject(this);
         createButtons(uiController);
+
     }
 
 
@@ -36,23 +38,23 @@ public class MainScreen extends GraphicalObject {
 
     @Override
     public void update(double dt) {
-        updateButton();
+        updateButtons();
     }
 
 
     private void createButtons(UIController uiController) {
         buttons = new Button[1];
         for (int i = 0; i < buttons.length; i++) {
-            buttons[i] = new Button(100,100,"assets/images/buttons/mainScreenBasic_"+i+".png","assets/images/buttons/mainScreenSelected_"+i+".png");
+            buttons[i] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+i+".png","assets/images/buttons/mainScreenSelected_"+i+".png");
             uiController.drawObject(buttons[i]);
         }
     }
 
 
-    private void updateButton(){
+    private void updateButtons(){
         for (int i = 0; i < buttons.length; i++) {
             if(buttons[i].isHit()){
-                System.out.println("hit it"+i);
+                System.exit(0);
             }
         }
     }

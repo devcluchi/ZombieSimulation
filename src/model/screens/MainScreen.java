@@ -3,7 +3,7 @@ package model.screens;
 import control.framework.UIController;
 import model.Logic;
 import model.entities.Mensch;
-import model.entities.TableMaker;
+import model.entities.TableManager;
 import model.entities.Wetter;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
@@ -14,7 +14,7 @@ public class MainScreen extends GraphicalObject {
 
     BufferedImage image;
     Button[] buttons;
-    private TableMaker tableMaker;
+    private TableManager tableManager;
     private Logic logic;
     private Mensch mensch;
     private Wetter wetter;
@@ -23,8 +23,6 @@ public class MainScreen extends GraphicalObject {
     public MainScreen(UIController uiController) {
 
         logic = new Logic();
-        tableMaker = new TableMaker();
-
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);

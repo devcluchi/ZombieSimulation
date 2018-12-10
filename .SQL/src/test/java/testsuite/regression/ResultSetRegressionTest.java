@@ -1933,12 +1933,12 @@ public class ResultSetRegressionTest extends BaseTestCase {
     }
 
     /*
-     * public void testBug16458() throws Exception { createTable("a", "(id
-     * INTEGER NOT NULL, primary key (id)) Type=InnoDB"); createTable("b", "(id
-     * INTEGER NOT NULL, primary key (id)) Type=InnoDB"); createTable("c", "(id
+     * public void testBug16458() throws Exception { createAllTable("a", "(id
+     * INTEGER NOT NULL, primary key (id)) Type=InnoDB"); createAllTable("b", "(id
+     * INTEGER NOT NULL, primary key (id)) Type=InnoDB"); createAllTable("c", "(id
      * INTEGER NOT NULL, primary key (id)) Type=InnoDB");
      * 
-     * createTable( "problem_table", "(id int(11) NOT NULL auto_increment," +
+     * createAllTable( "problem_table", "(id int(11) NOT NULL auto_increment," +
      * "a_id int(11) NOT NULL default '0'," + "b_id int(11) NOT NULL default
      * '0'," + "c_id int(11) default NULL," + "order_num int(2) NOT NULL default
      * '0'," + "PRIMARY KEY (id)," + "KEY idx_problem_table__b_id (b_id)," +

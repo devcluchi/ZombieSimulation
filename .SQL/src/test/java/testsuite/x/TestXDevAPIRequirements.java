@@ -243,7 +243,7 @@ public class TestXDevAPIRequirements extends BaseXDevAPITestCase {
     }
 
     /**
-     * Table.createTable [26] - not supported in first version
+     * Table.createAllTable [26] - not supported in first version
      * Table Index Creation [60] - not supported in first version
      * Table.insert [28]
      * Table.select basics [27]

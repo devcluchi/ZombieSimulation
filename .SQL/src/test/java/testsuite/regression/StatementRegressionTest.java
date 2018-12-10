@@ -2288,7 +2288,7 @@ public class StatementRegressionTest extends BaseTestCase {
      * public void testBug9595() throws Exception { double[] vals = new double[]
      * {52.21, 52.22, 52.23, 52.24};
      * 
-     * createTable("testBug9595", "(field1 DECIMAL(10,2), sortField INT)");
+     * createAllTable("testBug9595", "(field1 DECIMAL(10,2), sortField INT)");
      * 
      * this.pstmt = this.conn.prepareStatement("INSERT INTO testBug9595 VALUES
      * (?, ?)"); // Try setting as doubles for (int i = 0; i < vals.length; i++)
@@ -2457,7 +2457,7 @@ public class StatementRegressionTest extends BaseTestCase {
      * public void testBug9288() throws Exception { String tableName =
      * "testBug9288"; PreparedStatement pStmt = null;
      * 
-     * try { createTable(tableName, "(field1 VARCHAR(32), field2 INT)"); pStmt =
+     * try { createAllTable(tableName, "(field1 VARCHAR(32), field2 INT)"); pStmt =
      * ((com.mysql.jdbc.Connection)this.conn).clientPrepareStatement( "SELECT
      * COUNT(1) FROM " + tableName + " WHERE " + "field1 LIKE '%' ESCAPE '\\'
      * AND " + "field2 > ?"); pStmt.setInt(1, 0);
@@ -2474,7 +2474,7 @@ public class StatementRegressionTest extends BaseTestCase {
      * 
      * String tableName = "testBug10999"; String updateTrigName =
      * "testBug10999Update"; String insertTrigName = "testBug10999Insert"; try {
-     * createTable(tableName, "(pkfield INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+     * createAllTable(tableName, "(pkfield INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
      * field1 VARCHAR(32))");
      * 
      * try { this.stmt.executeUpdate("DROP TRIGGER " + updateTrigName); } catch
@@ -4956,7 +4956,7 @@ public class StatementRegressionTest extends BaseTestCase {
     }
 
     /*
-     * public void testBug35307() throws Exception { createTable("testBug35307",
+     * public void testBug35307() throws Exception { createAllTable("testBug35307",
      * "(`id` int(11) unsigned NOT NULL auto_increment," +
      * "`field` varchar(20) NOT NULL," + "`date` datetime NOT NULL," +
      * "PRIMARY KEY  (`id`)" + ") ENGINE=MyISAM DEFAULT CHARSET=latin1");

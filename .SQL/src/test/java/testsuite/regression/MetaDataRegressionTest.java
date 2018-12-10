@@ -2810,7 +2810,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
      */
     public void testBug63456() throws Exception {
 
-        //createTable("testBug63456_custom1", "(TEST VARCHAR(10)) ENGINE = MyISAM CHARACTER SET custom1 COLLATE custom1_general_ci");
+        //createAllTable("testBug63456_custom1", "(TEST VARCHAR(10)) ENGINE = MyISAM CHARACTER SET custom1 COLLATE custom1_general_ci");
         createTable("testBug63456_latin1", "(TEST VARCHAR(10)) DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci");
         createTable("testBug63456_utf8", "(TEST VARCHAR(10)) DEFAULT CHARACTER SET utf8");
         createTable("testBug63456_utf8_bin", "(TEST VARCHAR(10)) DEFAULT CHARACTER SET utf8 COLLATE utf8_bin");

@@ -1,5 +1,6 @@
 package model;
 
+import model.abitur.datenstrukturen.List;
 import model.entities.Mensch;
 import model.entities.TableMaker;
 import model.entities.Wetter;
@@ -11,14 +12,26 @@ import java.sql.Statement;
 public class Logic {
 
     TableMaker tableMaker;
-    private Mensch mensch;
+    private List<Mensch> menschen;
     private Wetter wetter;
 
 
     public Logic() {
-        tableMaker= new TableMaker();
-        mensch = new Mensch();
-        wetter = new Wetter();
+        createEverything();
+        //tableMaker= new TableMaker();
+
+        //wetter = new Wetter();
+    }
+
+    private void createEverything() {
+        createHuman();
+    }
+
+    private void createHuman() {
+        menschen = new List<>();
+        for (int i = 0; i < 30; i++) {
+            menschen.append(new Mensch());
+        }
     }
 
     public void resetAllStats(){

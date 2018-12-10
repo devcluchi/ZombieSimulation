@@ -1,6 +1,7 @@
 package model.screens;
 
 import control.framework.UIController;
+import model.Logic;
 import model.entities.Mensch;
 import model.entities.TableMaker;
 import model.entities.Wetter;
@@ -11,29 +12,27 @@ import java.awt.image.BufferedImage;
 
 public class MainScreen extends GraphicalObject {
 
-    BufferedImage image;
+    BufferedImage background;
     Button[] buttons;
-    TableMaker tableMaker;
-    private Mensch mensch;
-    private Wetter wetter;
+    Logic logic;
 
     public MainScreen(UIController uiController) {
-
-        tableMaker= new TableMaker();
-        mensch = new Mensch();
-        wetter = new Wetter();
-
-        image = createNewImage("assets/images/screens/main.png");
+        background = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
-
+        logic = new Logic();
     }
 
 
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(image,0,0);
+        drawTool.drawImage(background,0,0);
+        drawStats(drawTool);
+    }
+
+    private void drawStats(DrawTool drawTool) {
+
     }
 
     @Override
@@ -54,6 +53,7 @@ public class MainScreen extends GraphicalObject {
     private void updateButtons(){
         for (int i = 0; i < buttons.length; i++) {
             if(buttons[i].isHit()){
+                logic.resetAllStats();
                 System.exit(0);
             }
         }

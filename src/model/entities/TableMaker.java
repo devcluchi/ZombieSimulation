@@ -29,6 +29,7 @@ public class TableMaker {
                         "bewaffnet bit ,"+
                         "untergekommen bit  , "+
                         "lebt bit   ,"+
+                        "hilfe bit,"+
                         "PRIMARY KEY (meID)" +
                         ");");
                 stmt.execute("CREATE TABLE Zom_Zombie (" +

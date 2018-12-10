@@ -12,27 +12,30 @@ import java.awt.image.BufferedImage;
 
 public class MainScreen extends GraphicalObject {
 
-    BufferedImage background;
+    BufferedImage image;
     Button[] buttons;
-    Logic logic;
+    private TableMaker tableMaker;
+    private Logic logic;
+    private Mensch mensch;
+    private Wetter wetter;
+
 
     public MainScreen(UIController uiController) {
-        background = createNewImage("assets/images/screens/main.png");
+
+        logic = new Logic();
+        tableMaker = new TableMaker();
+
+        image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
-        logic = new Logic();
+
     }
 
 
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(background,0,0);
-        drawStats(drawTool);
-    }
-
-    private void drawStats(DrawTool drawTool) {
-
+        drawTool.drawImage(image,0,0);
     }
 
     @Override
@@ -42,20 +45,31 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[1];
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+i+".png","assets/images/buttons/mainScreenSelected_"+i+".png");
-            uiController.drawObject(buttons[i]);
-        }
+        buttons = new Button[2];
+
+            buttons[0] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+            uiController.drawObject(buttons[0]);
+
+            buttons[1] = new Button(1100,75,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+            uiController.drawObject(buttons[1]);
+
     }
 
 
     private void updateButtons(){
-        for (int i = 0; i < buttons.length; i++) {
-            if(buttons[i].isHit()){
-                logic.resetAllStats();
+
+            if(buttons[0].isHit()){
                 System.exit(0);
             }
-        }
+            if(buttons[1].isHit()){
+                simNextDay();
+            }
+    }
+
+
+    public void simNextDay(){
+        System.out.println("Hallo");
+        logic.resetAllStats();
+
     }
 }

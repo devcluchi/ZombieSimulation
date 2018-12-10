@@ -8,6 +8,7 @@ public class Essen {
 
     public Essen(){
 
+        generateFood();
 
     }
 

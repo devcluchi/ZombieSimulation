@@ -6,8 +6,11 @@ import java.sql.Statement;
 
 public class Medikament {
 
+
+
     public Medikament(){
 
+        generateMedi();
 
     }
 
@@ -23,7 +26,7 @@ public class Medikament {
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
             stmt.execute("INSERT INTO Zom_Medikament (wirksamkeit,Vorrat) " +
-                    "VALUES (10,10);");
+                    "VALUES ("+(int)Math.random()*10+",10);");
 
         } catch(Exception e){
             e.printStackTrace();

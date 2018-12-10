@@ -10,7 +10,7 @@ public class Mensch {
 
     public Mensch(){
 
-
+        babiesmachen();
     }
 
     public void babiesmachen(){
@@ -26,8 +26,8 @@ public class Mensch {
 
 
             // Lege ein paar Datensätze in der Tabelle an (primary key wird ausgelassen wg. auto-inkrement => heißt aber man kann Leute auch doppelt anlegen)
-            stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt) " +
-                    "VALUES (false,false,0,0,false,true,true);");
+            stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt,hilfe) " +
+                    "VALUES (0,0,0,0,0,1,0);");
 
 
 

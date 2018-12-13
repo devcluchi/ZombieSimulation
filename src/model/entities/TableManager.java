@@ -13,6 +13,7 @@ public class TableManager {
     public TableManager() throws SQLException {
         con = DriverManager.getConnection("jdbc:mysql://mysql.webhosting24.1blu.de/db85565x2810214?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "s85565_2810214", "kkgbeste");
         stmt = con.createStatement();
+        createAllTable();
     }
 
     public void createAllTable() throws SQLException {

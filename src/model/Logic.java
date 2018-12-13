@@ -18,12 +18,14 @@ public class Logic {
 
 
     public Logic() {
-        createEverything();
         try {
             tableManager= new TableManager();
+            createEverything();
+            System.out.println("Tabellen angelegt und befüllt");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
 
         //wetter = new Wetter();
     }

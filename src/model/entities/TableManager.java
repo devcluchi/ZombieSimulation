@@ -32,6 +32,8 @@ public class TableManager {
                 stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt,hilfe) " +
                         "VALUES (0,0,0,0,0,1,0);");
             }
+            stmt.execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
+                    "VALUES (0,1);");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +83,8 @@ public class TableManager {
     public void createZombies() throws SQLException {
         stmt.execute("CREATE TABLE Zom_Zombie (" +
                 "zID int NOT NULL AUTO_INCREMENT," +
-                "infiziert int NOT NULL ," +
+                "infiziert int," +
+                "lebt bit," +
                 "PRIMARY KEY (zID)" +
                 ");");
     }

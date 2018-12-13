@@ -3,6 +3,7 @@ package model;
 import model.abitur.datenstrukturen.List;
 import model.entities.Mensch;
 import model.entities.TableManager;
+import model.entities.Zombie;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,11 +12,13 @@ public class Logic {
 
     TableManager tableManager;
     private List<Mensch> menschen;
+    private List<Zombie> zombies;
 
 
     public Logic() {
         tableManager= new TableManager();
         menschen = new List<>();
+        zombies = new List<>();
         System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
 
@@ -30,10 +33,12 @@ public class Logic {
     private void recieveAllInformation(){
         try {
             recieveHumanInformation();
+            recieveZombieInformation();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public void resetAllStats() {
 
@@ -53,6 +58,14 @@ public class Logic {
         }
     }
 
+    private void recieveZombieInformation() throws SQLException {
+        ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Zombies;");
+        while (results.next()){
+            zombies.append(new Zombie(results.getInt("zID")));
+        }
+    }
+
+
     private TableManager getTableManager() {
         return tableManager;
     }
@@ -60,8 +73,17 @@ public class Logic {
     public void updateAllInformation() {
         try {
             updateHumanInformation();
+            updateZombieInformation();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateZombieInformation() throws SQLException {
+        zombies.toFirst();
+        while (zombies.hasAccess()){
+            zombies.getContent().updateInformations();
+            zombies.next();
         }
     }
 

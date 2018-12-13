@@ -19,10 +19,22 @@ public class TableManager {
         }
         try {
             createAllTable();
+            fillAllTable();
         } catch (SQLException e) {
             System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
         }
 
+    }
+
+    public void fillAllTable(){
+        try {
+            for (int i = 0; i < 30; i++) {
+                stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt,hilfe) " +
+                        "VALUES (0,0,0,0,0,1,0);");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createAllTable() throws SQLException {
@@ -142,6 +154,10 @@ public class TableManager {
                 "Vorrat int,"+
                 "PRIMARY KEY (mID)" +
                 ");");
+    }
+
+    public Statement getStmt() {
+        return stmt;
     }
 }
 

@@ -3,34 +3,35 @@ package model;
 import model.abitur.datenstrukturen.List;
 import model.entities.Mensch;
 import model.entities.TableManager;
-import model.entities.Wetter;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Logic {
 
     TableManager tableManager;
     private List<Mensch> menschen;
-    private Wetter wetter;
 
 
     public Logic() {
         tableManager= new TableManager();
-        fillAllTables();
-        System.out.println("Tabellen angelegt und befüllt");
-
-
-        //wetter = new Wetter();
-    }
-
-    public void fillAllTables() {
-        fillHuman();
-    }
-
-    private void fillHuman() {
         menschen = new List<>();
-        for (int i = 0; i < 30; i++) {
-            menschen.append(new Mensch());
+        System.out.println("Tabellen angelegt und befüllt");
+        recieveAllInformation();
+
+        //Test
+        menschen.toFirst();
+        while (menschen.hasAccess()){
+            System.out.println(menschen.getContent().getId()+" - "+menschen.getContent().isLebt());
+            menschen.next();
+        }
+    }
+
+    private void recieveAllInformation(){
+        try {
+            recieveHumanInformation();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -44,7 +45,15 @@ public class Logic {
         }
     }
 
-    public TableManager getTableManager() {
+    private void recieveHumanInformation() throws SQLException {
+
+        ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Menschen;");
+        while (results.next()){
+            menschen.append(new Mensch(results.getInt("meID")));
+        }
+    }
+
+    private TableManager getTableManager() {
         return tableManager;
     }
 }

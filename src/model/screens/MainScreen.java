@@ -72,6 +72,6 @@ public class MainScreen extends GraphicalObject {
 
     public void simNextDay(){
         System.out.println("simNextDay");
-        logic.resetAllStats();
+        logic.updateAllInformation();
     }
 }

@@ -56,4 +56,20 @@ public class Logic {
     private TableManager getTableManager() {
         return tableManager;
     }
+
+    public void updateAllInformation() {
+        try {
+            updateHumanInformation();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateHumanInformation() throws SQLException {
+        menschen.toFirst();
+        while (menschen.hasAccess()){
+            menschen.getContent().updateInformations();
+            menschen.next();
+        }
+    }
 }

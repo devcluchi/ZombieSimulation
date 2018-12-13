@@ -1,62 +1,28 @@
 package model.entities;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Mensch {
 
     private boolean krank, bewaffnet, untergekommen, lebt, hilfe;
     private int hunger, durst, id;
 
+    private Connection con;
+    private Statement stmt;
+
     public Mensch(int id){
         try {
             // Erstelle eine Verbindung zu unserer SQL-Datenbank
-            Connection con = DriverManager.getConnection("jdbc:mysql://mysql.webhosting24.1blu.de/db85565x2810214?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "s85565_2810214", "kkgbeste");
-            Statement stmt = con.createStatement();
-
-            this.id = id;
-            ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Menschen WHERE meID="+id+";");
-            results.next();
-            if(results.getString("krank") == "0"){
-                krank=false;
-            }else {
-                krank= true;
-            }
-            if(results.getString("bewaffnet") == "0"){
-                bewaffnet=false;
-            }else {
-                bewaffnet= true;
-            }
-            if(results.getString("untergekommen") == "0"){
-                untergekommen=false;
-            }else {
-                untergekommen= true;
-            }
-            if(results.getString("lebt") == "0"){
-                lebt=false;
-            }else {
-                lebt= true;
-            }
-            if(results.getString("hilfe") == "0"){
-                hilfe=false;
-            }else {
-                hilfe= true;
-            }
-
-            hunger = results.getInt("hunger");
-            durst = results.getInt("durst");
-        } catch(Exception e){
+            con = DriverManager.getConnection("jdbc:mysql://mysql.webhosting24.1blu.de/db85565x2810214?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "s85565_2810214", "kkgbeste");
+            stmt = con.createStatement();
+            updateInformations();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
+        this.id = id;
     }
 
-
     public void bewaffnen(){
-
 
     }
 
@@ -114,5 +80,38 @@ public class Mensch {
 
     public int getId() {
         return id;
+    }
+
+    public void updateInformations() throws SQLException {
+            ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Menschen WHERE meID="+id+";");
+            results.next();
+            if(results.getString("krank") == "0"){
+                krank=false;
+            }else {
+                krank= true;
+            }
+            if(results.getString("bewaffnet") == "0"){
+                bewaffnet=false;
+            }else {
+                bewaffnet= true;
+            }
+            if(results.getString("untergekommen") == "0"){
+                untergekommen=false;
+            }else {
+                untergekommen= true;
+            }
+            if(results.getString("lebt") == "0"){
+                lebt=false;
+            }else {
+                lebt= true;
+            }
+            if(results.getString("hilfe") == "0"){
+                hilfe=false;
+            }else {
+                hilfe= true;
+            }
+
+            hunger = results.getInt("hunger");
+            durst = results.getInt("durst");
     }
 }

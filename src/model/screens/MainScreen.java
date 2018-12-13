@@ -8,7 +8,10 @@ import model.entities.Wetter;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
 public class MainScreen extends GraphicalObject {
 
@@ -57,7 +60,9 @@ public class MainScreen extends GraphicalObject {
     private void updateButtons(){
 
             if(buttons[0].isHit()){
+                logic.resetAllStats();
                 System.exit(0);
+
             }
             if(buttons[1].isHit()){
                 simNextDay();
@@ -68,6 +73,5 @@ public class MainScreen extends GraphicalObject {
     public void simNextDay(){
         System.out.println("simNextDay");
         logic.resetAllStats();
-
     }
 }

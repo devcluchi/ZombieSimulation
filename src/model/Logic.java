@@ -5,10 +5,7 @@ import model.entities.Mensch;
 import model.entities.TableManager;
 import model.entities.Wetter;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Logic {
 
@@ -18,23 +15,19 @@ public class Logic {
 
 
     public Logic() {
-        try {
-            tableManager= new TableManager();
-            createEverything();
-            System.out.println("Tabellen angelegt und befüllt");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        tableManager= new TableManager();
+        fillAllTables();
+        System.out.println("Tabellen angelegt und befüllt");
 
 
         //wetter = new Wetter();
     }
 
-    private void createEverything() {
-        createHuman();
+    public void fillAllTables() {
+        fillHuman();
     }
 
-    private void createHuman() {
+    private void fillHuman() {
         menschen = new List<>();
         for (int i = 0; i < 30; i++) {
             menschen.append(new Mensch());
@@ -45,8 +38,13 @@ public class Logic {
 
         try {
             tableManager.dropAllTable();
+            System.out.println("Alle Tabellen gelöscht");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Tabellen konnten nicht gelöscht werden: "+e.getMessage());
         }
+    }
+
+    public TableManager getTableManager() {
+        return tableManager;
     }
 }

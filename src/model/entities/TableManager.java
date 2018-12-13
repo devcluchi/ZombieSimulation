@@ -1,9 +1,6 @@
 package model.entities;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class TableManager {
     private Connection con;
@@ -34,6 +31,32 @@ public class TableManager {
             }
             stmt.execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
                     "VALUES (0,1);");
+
+            stmt.execute("INSERT INTO Zom_Essen (Vorrat) " +
+                    "VALUES (20);");
+
+            stmt.execute("INSERT INTO Zom_Medikament (wirksamkeit,Vorrat) " +
+                    "VALUES ("+(int)Math.random()*10+",10);");
+
+            stmt.execute("INSERT INTO Zom_Nutztiere (Bestand, Verarbeitungsqualität) " +
+                    "VALUES (10,10);");
+
+            stmt.execute("INSERT INTO Zom_Raubtiere (Gefrässigkeit,Population) " +
+                    "VALUES (10,10);");
+
+            stmt.execute("INSERT INTO Zom_Wasserquelle (Vorrat) " +
+                    "VALUES (10);");
+
+            stmt.execute("INSERT INTO Zom_Umwelt (Zustand) " +
+                    "VALUES ('Normal');");
+
+            stmt.execute("INSERT INTO Zom_Waffen (Bestand, Effektivität) " +
+                    "VALUES (10,10);");
+
+
+            stmt.execute("INSERT INTO Zom_Wetter (Zustand) " +
+                    "VALUES ('Sonnig');");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,7 +150,7 @@ public class TableManager {
         stmt.execute("CREATE TABLE Zom_Raubtiere (" +
                 "rID int NOT NULL AUTO_INCREMENT," +
                 "Gefrässigkeit int," +
-                "Häufigkeit int,"+
+                "Population int,"+
                 "PRIMARY KEY (rID)" +
                 ");");
     }
@@ -162,5 +185,7 @@ public class TableManager {
     public Statement getStmt() {
         return stmt;
     }
+
+
 }
 

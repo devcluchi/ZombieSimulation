@@ -59,7 +59,7 @@ public class Logic {
     }
 
     private void recieveZombieInformation() throws SQLException {
-        ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Zombies;");
+        ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Zombie;");
         while (results.next()){
             zombies.append(new Zombie(results.getInt("zID")));
         }

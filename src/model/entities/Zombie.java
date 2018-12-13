@@ -24,7 +24,7 @@ public class Zombie {
     }
 
     public void updateInformations() throws SQLException {
-        ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Menschen WHERE meID="+id+";");
+        ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Zombie WHERE zID="+id+";");
         results.next();
         if(results.getString("lebt") == "0"){
             lebt=false;

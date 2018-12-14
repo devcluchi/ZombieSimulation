@@ -29,19 +29,18 @@ public class Logic {
         tableManager= new TableManager();
         menschen = new List<>();
         zombies = new List<>();
-        waffen = new Waffen();
+        /*waffen = new Waffen();
         trinken = new Trinken();
         umwelt = new Umwelt();
         wetter = new Wetter();
         raubtiere = new Raubtiere();
         nutztiere = new Nutztiere();
         medikament = new Medikament();
-        essen = new Essen();
+        essen = new Essen();*/
         System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
-        ResultSet count = null;
         try {
-            count = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
+            ResultSet count = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
             count.next();
             lebendeMenschen = count.getInt(1);
             System.out.println(lebendeMenschen);
@@ -69,14 +68,14 @@ public class Logic {
         try {
             recieveHumanInformation();
             recieveZombieInformation();
-            recieveEssenInformation();
+            /*recieveEssenInformation();
             recieveMedikamenteInformation();
             recieveNutztiereInformation();
             recieveRaubtiereInformation();
             recieveUmweltInformation();
             recieveWaffenInformation();
             recieveWetterInformation();
-            recieveTrinkenInformation();
+            recieveTrinkenInformation();*/
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -165,14 +164,14 @@ public class Logic {
         try {
             updateHumanInformation();
             updateZombieInformation();
-            updateEssenInformation();
+            /*updateEssenInformation();
             updateMedikamenteInformation();
             updateNutztiereInformation();
             updateRaubtiereInformation();
             updateTrinkenInformation();
             updateWaffenInformation();
             updateWetterInformation();
-            updateUmweltInformation();
+            updateUmweltInformation();*/
         } catch (SQLException e) {
             e.printStackTrace();
         }

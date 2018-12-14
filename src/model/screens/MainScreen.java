@@ -15,7 +15,6 @@ public class MainScreen extends GraphicalObject {
 
     BufferedImage image;
     Button[] buttons;
-    private TableManager tableMaker;
     private Logic logic;
     private Mensch mensch;
     private Wetter wetter;
@@ -25,7 +24,6 @@ public class MainScreen extends GraphicalObject {
     public MainScreen(UIController uiController) {
 
         logic = new Logic();
-        tableMaker = new TableManager();
 
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
@@ -76,7 +74,7 @@ public class MainScreen extends GraphicalObject {
 
     public void simNextDay(){
         System.out.println("Hallo");
-        logic.resetAllStats();
+        logic.updateAllInformation();
 
     }
 }

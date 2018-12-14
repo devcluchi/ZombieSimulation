@@ -8,35 +8,39 @@ import model.entities.Wetter;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.sql.SQLException;
 
 public class MainScreen extends GraphicalObject {
 
     BufferedImage image;
     Button[] buttons;
-    private TableManager tableManager;
+    private TableManager tableMaker;
     private Logic logic;
     private Mensch mensch;
     private Wetter wetter;
+    private Font font;
 
 
     public MainScreen(UIController uiController) {
 
         logic = new Logic();
+        tableMaker = new TableManager();
+
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
-
+        //font = new Font("Comic Sans",Font.BOLD,24);
     }
 
 
 
     @Override
     public void draw(DrawTool drawTool) {
+
         drawTool.drawImage(image,0,0);
+        drawTool.setCurrentColor(255,255,255,255);
+        drawTool.drawText(100,25,""+logic.getLebendeMenschen());
     }
 
     @Override
@@ -71,8 +75,8 @@ public class MainScreen extends GraphicalObject {
 
 
     public void simNextDay(){
-        System.out.println("simNextDay");
-        logic.updateAllInformation();
+        System.out.println("Hallo");
+        logic.resetAllStats();
 
     }
 }

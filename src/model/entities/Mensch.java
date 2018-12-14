@@ -115,14 +115,9 @@ public class Mensch {
             hunger = results.getInt("hunger");
             durst = results.getInt("durst");
 
-            //Funktioniert irgendwie nicht
 
-          //  ResultSet count = stmt.executeQuery("SELECT COUNT (meID) FROM Zom_Menschen;");
-            //count.next();
 
-            //allHuman = count.getInt(1);
 
-        //System.out.println(allHuman);
 
     }
 }

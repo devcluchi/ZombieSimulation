@@ -20,6 +20,8 @@ public class Logic {
     private Medikament medikament;
     private Essen essen;
 
+    private int lebendeMenschen;
+
 
 
 
@@ -37,6 +39,21 @@ public class Logic {
         essen = new Essen();
         System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
+        ResultSet count = null;
+        try {
+            count = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
+            count.next();
+            lebendeMenschen = count.getInt(1);
+            System.out.println(lebendeMenschen);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
         //Test
         menschen.toFirst();
@@ -235,5 +252,7 @@ public class Logic {
 
     }
 
-
+    public int getLebendeMenschen() {
+        return lebendeMenschen;
+    }
 }

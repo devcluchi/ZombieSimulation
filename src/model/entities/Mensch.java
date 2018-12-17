@@ -5,7 +5,7 @@ import java.sql.*;
 public class Mensch {
 
     private boolean krank, bewaffnet, untergekommen, lebt, hilfe;
-    private int hunger, durst, id,allHuman;
+    private int hunger, durst, id;
 
     private Connection con;
     private Statement stmt;
@@ -111,7 +111,6 @@ public class Mensch {
             }else {
                 hilfe= true;
             }
-
             hunger = results.getInt("hunger");
             durst = results.getInt("durst");
 

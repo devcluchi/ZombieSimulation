@@ -2,9 +2,6 @@ package model.screens;
 
 import control.framework.UIController;
 import model.Logic;
-import model.entities.Mensch;
-import model.entities.TableManager;
-import model.entities.Wetter;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -16,8 +13,6 @@ public class MainScreen extends GraphicalObject {
     BufferedImage image;
     Button[] buttons;
     private Logic logic;
-    private Mensch mensch;
-    private Wetter wetter;
     private Font font;
 
 
@@ -28,17 +23,18 @@ public class MainScreen extends GraphicalObject {
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
-        //font = new Font("Comic Sans",Font.BOLD,24);
+        font = new Font("Comic Sans",Font.BOLD,28);
     }
 
 
 
     @Override
     public void draw(DrawTool drawTool) {
-
         drawTool.drawImage(image,0,0);
         drawTool.setCurrentColor(255,255,255,255);
-        drawTool.drawText(100,25,""+logic.getLebendeMenschen());
+        drawTool.setFont(font);
+        drawTool.drawText(250,80,""+logic.getLebendeMenschen());
+        drawTool.drawText(250,130,""+logic.getLebendeZombies());
     }
 
     @Override
@@ -75,6 +71,6 @@ public class MainScreen extends GraphicalObject {
     public void simNextDay(){
         System.out.println("Hallo");
         logic.updateAllInformation();
-
+        logic.tryToFeedHuman();
     }
 }

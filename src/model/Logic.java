@@ -21,8 +21,7 @@ public class Logic {
     private Essen essen;
 
     private int lebendeMenschen;
-
-
+    private int lebendeZombies;
 
 
     public Logic() {
@@ -40,10 +39,12 @@ public class Logic {
         System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
         try {
-            ResultSet count = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
-            count.next();
-            lebendeMenschen = count.getInt(1);
-            System.out.println(lebendeMenschen);
+            ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
+            countHuman.next();
+            lebendeMenschen = countHuman.getInt(1);
+            ResultSet countZombies = tableManager.getStmt().executeQuery("SELECT COUNT(zID) FROM Zom_Zombie;");
+            countZombies.next();
+            lebendeZombies = countZombies.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -253,5 +254,16 @@ public class Logic {
 
     public int getLebendeMenschen() {
         return lebendeMenschen;
+    }
+
+    public int getLebendeZombies() {
+        return lebendeZombies;
+    }
+
+    public void tryToFeedHuman() {
+        int random = (int) (Math.random()*100+1);
+        if(random<20){
+            //TODO DATENBANK-MANIPULATION
+        }
     }
 }

@@ -149,4 +149,8 @@ public class DrawTool {
         graphics2D = g2d;
     }
 
+    public void setFont(Font font){
+        if (graphics2D!=null) graphics2D.setFont(font);
+    }
+
 }

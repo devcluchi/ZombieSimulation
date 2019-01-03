@@ -38,17 +38,6 @@ public class Logic {
         essen = new Essen();*/
         System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
-        try {
-            ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
-            countHuman.next();
-            lebendeMenschen = countHuman.getInt(1);
-            ResultSet countZombies = tableManager.getStmt().executeQuery("SELECT COUNT(zID) FROM Zom_Zombie;");
-            countZombies.next();
-            lebendeZombies = countZombies.getInt(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
 
 
 
@@ -80,6 +69,18 @@ public class Logic {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void countZombies() throws SQLException {
+        ResultSet countZombies = tableManager.getStmt().executeQuery("SELECT COUNT(zID) FROM Zom_Zombie;");
+        countZombies.next();
+        lebendeZombies = countZombies.getInt(1);
+    }
+
+    private void countHuman() throws SQLException {
+        ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
+        countHuman.next();
+        lebendeMenschen = countHuman.getInt(1);
     }
 
 
@@ -184,6 +185,8 @@ public class Logic {
             zombies.getContent().updateInformations();
             zombies.next();
         }
+        countZombies();
+
     }
 
     private void updateHumanInformation() throws SQLException {
@@ -192,6 +195,7 @@ public class Logic {
             menschen.getContent().updateInformations();
             menschen.next();
         }
+        countHuman();
     }
 
 
@@ -253,17 +257,57 @@ public class Logic {
     }
 
     public int getLebendeMenschen() {
+        try {
+            countHuman();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return lebendeMenschen;
     }
 
     public int getLebendeZombies() {
+        try {
+            countZombies();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return lebendeZombies;
     }
 
     public void tryToFeedHuman() {
-        int random = (int) (Math.random()*100+1);
-        if(random<20){
-            //TODO DATENBANK-MANIPULATION
+        for (int j = 0; j < lebendeZombies; j++) {
+            int random = (int) (Math.random()*100+1);
+            if(random<20){
+                System.out.println(lebendeMenschen);
+                int randomHuman = (int) (Math.random()*lebendeMenschen)+1;
+                menschen.toFirst();
+                for (int i = 1; i <= randomHuman; i++) {
+                    menschen.next();
+                }
+                killHuman(randomHuman+1);
+                addZombie();
+                updateAllInformation();
+            }
+        }
+    }
+
+    private void killHuman(int humanID) {
+        try {
+            tableManager.getStmt().execute("DELETE FROM Zom_Menschen WHERE Zom_Menschen.meID = "+humanID+";");
+            menschen.remove();
+        } catch (SQLException e) {
+
+
+        }
+    }
+
+    private void addZombie(){
+        try {
+            tableManager.getStmt().execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
+                    "VALUES (0,1);");
+            zombies.append(new Zombie(lebendeZombies+1));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

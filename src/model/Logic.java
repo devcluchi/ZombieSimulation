@@ -286,9 +286,26 @@ public class Logic {
                 }
                 killHuman(randomHuman+1);
                 addZombie();
+                /**
+                 * Die untere Try-Catch ist nur zum Probieren
+                 */
+                try {
+                    int infizierteMenschen = infizierteMenschen(randomHuman);
+                    tableManager.getStmt().execute("UPDATE Zom_Zombie SET infiziert = "+infizierteMenschen+1+", lebt = 1 WHERE Zom_Zombie.zID = 1;");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 updateAllInformation();
             }
         }
+    }
+
+    private int infizierteMenschen(int id) throws SQLException {
+        ResultSet result= tableManager.getStmt().executeQuery("SELECT infiziert FROM Zom_Zombie WHERE Zom_Zombie.zID = "+id+";");
+        result.next();
+        return result.getInt(1);
+
     }
 
     private void killHuman(int humanID) {

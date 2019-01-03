@@ -46,5 +46,11 @@ public class Medikament {
 
         }
 
+    public int getVorrat(){
+
+        return vorrat;
+
+    }
+
 
     }

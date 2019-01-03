@@ -38,4 +38,10 @@ public class Essen {
 
         }
 
+     public int getVorrat(){
+
+        return vorrat;
+
+     }
+
     }

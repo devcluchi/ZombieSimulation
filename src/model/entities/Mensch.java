@@ -25,6 +25,13 @@ public class Mensch {
 
     public void bewaffnen(){
 
+        if(bewaffnet){
+
+            bewaffnet = false;
+        }else{
+            bewaffnet = true;
+        }
+
     }
 
     public void MediNutzen(){

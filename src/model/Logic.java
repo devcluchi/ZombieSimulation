@@ -28,14 +28,14 @@ public class Logic {
         tableManager= new TableManager();
         menschen = new List<>();
         zombies = new List<>();
-        /*waffen = new Waffen();
+        waffen = new Waffen();
         trinken = new Trinken();
         umwelt = new Umwelt();
         wetter = new Wetter();
         raubtiere = new Raubtiere();
         nutztiere = new Nutztiere();
         medikament = new Medikament();
-        essen = new Essen();*/
+        essen = new Essen();
         System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
 
@@ -58,14 +58,15 @@ public class Logic {
         try {
             recieveHumanInformation();
             recieveZombieInformation();
-            /*recieveEssenInformation();
+            recieveWaffenInformation();
+            recieveTrinkenInformation();
+            recieveEssenInformation();
             recieveMedikamenteInformation();
             recieveNutztiereInformation();
             recieveRaubtiereInformation();
             recieveUmweltInformation();
-            recieveWaffenInformation();
             recieveWetterInformation();
-            recieveTrinkenInformation();*/
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,14 +167,14 @@ public class Logic {
         try {
             updateHumanInformation();
             updateZombieInformation();
-            /*updateEssenInformation();
+            updateWaffenInformation();
+            updateEssenInformation();
             updateMedikamenteInformation();
             updateNutztiereInformation();
             updateRaubtiereInformation();
             updateTrinkenInformation();
-            updateWaffenInformation();
             updateWetterInformation();
-            updateUmweltInformation();*/
+            updateUmweltInformation();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -327,4 +328,75 @@ public class Logic {
             e.printStackTrace();
         }
     }
+
+    public void humanTryToGetWeapon(){
+
+        if(waffen.getBestand() > 0){
+
+            try {
+                int bestand = waffen.getBestand() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Waffen SET bestand = "+bestand+";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+
+    }
+
+    public void useWater(){
+
+        if(trinken.getVorrat() > 0){
+
+            try {
+                int vorrat = trinken.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = "+vorrat+";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    public void eat(){
+
+        if(essen.getVorrat() > 0){
+
+            try {
+                int vorrat = essen.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorrat+";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+    public void useMedi(){
+
+        if(medikament.getVorrat() > 0){
+
+            try {
+                int vorrat = essen.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Medikament SET Vorrat = "+vorrat+";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
+
+    }
+
+
 }

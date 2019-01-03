@@ -72,5 +72,7 @@ public class MainScreen extends GraphicalObject {
         System.out.println("Hallo");
         logic.updateAllInformation();
         logic.tryToFeedHuman();
+        logic.humanTryToGetWeapon();
+        logic.useWater();
     }
 }

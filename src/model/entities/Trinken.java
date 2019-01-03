@@ -35,4 +35,10 @@ public class Trinken {
 
         }
 
+    public int getVorrat(){
+
+        return vorrat;
+
+    }
+
     }

@@ -42,6 +42,13 @@ public class Waffen {
 
         }
 
+
+    public int getBestand(){
+
+        return bestand;
+
+    }
+
     }
 
 

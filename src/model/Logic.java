@@ -36,22 +36,7 @@ public class Logic {
         nutztiere = new Nutztiere();
         medikament = new Medikament();
         essen = new Essen();
-        System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
-
-
-
-
-
-
-        //Test
-        menschen.toFirst();
-        while (menschen.hasAccess()){
-            System.out.println(menschen.getContent().getId()+" - "+menschen.getContent().isLebt());
-            menschen.next();
-        }
-
-
     }
 
     private void recieveAllInformation(){
@@ -90,6 +75,11 @@ public class Logic {
         try {
             tableManager.dropAllTable();
             System.out.println("Alle Tabellen gelöscht");
+            tableManager.createAllTable();
+            tableManager.fillAllTable();
+            updateAllInformation();
+            countZombies();
+            countHuman();
         } catch (SQLException e) {
             System.err.println("Tabellen konnten nicht gelöscht werden: "+e.getMessage());
         }

@@ -46,7 +46,7 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[4];
+        buttons = new Button[5];
 
         buttons[0] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
         uiController.drawObject(buttons[0]);
@@ -60,12 +60,14 @@ public class MainScreen extends GraphicalObject {
         buttons[3] = new Button(900,100,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
         uiController.drawObject(buttons[3]);
 
+        buttons[4] = new Button(1205,125,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        uiController.drawObject(buttons[4]);
+
     }
 
 
     private void updateButtons(){
         if(buttons[0].isHit()){
-            logic.resetAllStats();
             System.exit(0);
         }
         if(buttons[1].isHit()){
@@ -76,6 +78,9 @@ public class MainScreen extends GraphicalObject {
         }
         if (buttons[3].isHit()){
             logic.useMedi();
+        }
+        if (buttons[4].isHit()){
+            logic.resetAllStats();
         }
     }
 

@@ -255,25 +255,49 @@ public class Logic {
         }
     }
 
-    public void menschenDurst(){
+    public void menschenBeduerfnisse(){
         menschen.toFirst();
         try {
             int durst = menschen.getContent().getDurst() + 1;
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
-
+            int hunger = menschen.getContent().getHunger() + 1;
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
         try {
-
-            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst = 5;");
-
-
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst >= 5;");
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.hunger >= 8;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
+    }
+
+    public void krankWerden(){
+        menschen.toFirst();
+        int random = (int) (Math.random()*11) + 1;
+        if(random == 4){
+            try {
+                int krank = menschen.getContent().getKrankheit() + 1;
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(random == 6){
+            try {
+
+                int krank = menschen.getContent().getKrankheit() + 2;
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void useWater() {
@@ -372,49 +396,4 @@ public class Logic {
         return result.getInt("infiziert");
     }
     //endregion
-
-    public void menschenBeduerfnisse(){
-        menschen.toFirst();
-        try {
-            int durst = menschen.getContent().getDurst() + 1;
-            tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
-            int hunger = menschen.getContent().getHunger() + 1;
-            tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
-        try {
-            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst >= 5;");
-            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.hunger >= 8;");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
-    }
-
-    public void krankWerden(){
-        menschen.toFirst();
-        int random = (int) (Math.random()*11) + 1;
-        if(random == 4){
-            try {
-                int krank = menschen.getContent().getKrankheit() + 1;
-                tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
-                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if(random == 6){
-            try {
-
-                int krank = menschen.getContent().getKrankheit() + 2;
-                tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
-                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

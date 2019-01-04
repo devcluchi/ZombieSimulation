@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class Mensch {
 
-    private boolean  bewaffnet, untergekommen, lebt, hilfe;
-    private int krank, hunger, durst, id;
+    private boolean bewaffnet, untergekommen, lebt, hilfe;
+    private int krankheit, hunger, durst, id;
 
     private Connection con;
     private Statement stmt;
@@ -58,9 +58,7 @@ public class Mensch {
 
     }
 
-    public int isKrank() {
-        return krank;
-    }
+
 
     public boolean isBewaffnet() {
         return bewaffnet;
@@ -76,6 +74,10 @@ public class Mensch {
 
     public boolean isHilfe() {
         return hilfe;
+    }
+
+    public int getKrankheit() {
+        return krankheit;
     }
 
     public int getHunger() {
@@ -113,10 +115,9 @@ public class Mensch {
             }else {
                 hilfe= true;
             }
-            krank = results.getInt("krank");
+            krankheit = results.getInt("krank");
             hunger = results.getInt("hunger");
             durst = results.getInt("durst");
-
 
 
 

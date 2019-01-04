@@ -92,7 +92,5 @@ public class MainScreen extends GraphicalObject {
         logic.humanTryToGetWeapon();
         logic.menschenBeduerfnisse();
         logic.krankWerden();
-
-
     }
 }

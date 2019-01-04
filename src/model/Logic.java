@@ -36,24 +36,10 @@ public class Logic {
         nutztiere = new Nutztiere();
         medikament = new Medikament();
         essen = new Essen();
-        System.out.println("Tabellen angelegt und befüllt");
         recieveAllInformation();
-
-
-
-
-
-
-        //Test
-        menschen.toFirst();
-        while (menschen.hasAccess()){
-            System.out.println(menschen.getContent().getId()+" - "+menschen.getContent().isLebt());
-            menschen.next();
-        }
-
-
     }
 
+    //region Informations-Methoden
     private void recieveAllInformation(){
         try {
             recieveHumanInformation();
@@ -66,37 +52,12 @@ public class Logic {
             recieveRaubtiereInformation();
             recieveUmweltInformation();
             recieveWetterInformation();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void countZombies() throws SQLException {
-        ResultSet countZombies = tableManager.getStmt().executeQuery("SELECT COUNT(zID) FROM Zom_Zombie;");
-        countZombies.next();
-        lebendeZombies = countZombies.getInt(1);
-    }
-
-    private void countHuman() throws SQLException {
-        ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
-        countHuman.next();
-        lebendeMenschen = countHuman.getInt(1);
-    }
-
-
-    public void resetAllStats() {
-
-        try {
-            tableManager.dropAllTable();
-            System.out.println("Alle Tabellen gelöscht");
-        } catch (SQLException e) {
-            System.err.println("Tabellen konnten nicht gelöscht werden: "+e.getMessage());
-        }
-    }
-
     private void recieveHumanInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Menschen;");
         while (results.next()){
             menschen.append(new Mensch(results.getInt("meID")));
@@ -111,58 +72,51 @@ public class Logic {
     }
 
     private void recieveEssenInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Essen;");
-
     }
 
     private void recieveWaffenInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Waffen;");
-
     }
 
     private void recieveWetterInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Wetter;");
-
     }
 
     private void recieveUmweltInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Umwelt;");
-
     }
 
     private void recieveTrinkenInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Wasserquelle;");
-
     }
 
     private void recieveNutztiereInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Nutztiere;");
-
     }
 
     private void recieveRaubtiereInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Raubtiere;");
-
     }
 
     private void recieveMedikamenteInformation() throws SQLException {
-
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Medikament;");
-
     }
 
-
-    private TableManager getTableManager() {
-        return tableManager;
+    private void countZombies() throws SQLException {
+        ResultSet countZombies = tableManager.getStmt().executeQuery("SELECT COUNT(zID) FROM Zom_Zombie;");
+        countZombies.next();
+        lebendeZombies = countZombies.getInt(1);
     }
 
+    private void countHuman() throws SQLException {
+        ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
+        countHuman.next();
+        lebendeMenschen = countHuman.getInt(1);
+    }
+    //endregion
+
+    //region Update-Methoden
     public void updateAllInformation() {
         try {
             updateHumanInformation();
@@ -197,62 +151,201 @@ public class Logic {
         }
     }
 
-
-
     private void updateWetterInformation() throws SQLException {
-
         wetter.updateInformations();
     }
 
-
-
     private void updateWaffenInformation() throws SQLException {
-
         waffen.updateInformations();
     }
 
-
-
     private void updateUmweltInformation() throws SQLException {
-
         umwelt.updateInformations();
-
     }
 
-
-
     private void updateTrinkenInformation() throws SQLException {
-
         trinken.updateInformations();
     }
 
-
     private void updateRaubtiereInformation() throws SQLException {
-
         raubtiere.updateInformations();
-
     }
-
 
     private void updateNutztiereInformation() throws SQLException {
-
-
         nutztiere.updateInformations();
-
     }
-
 
     private void updateMedikamenteInformation() throws SQLException {
-
         medikament.updateInformations();
-
     }
 
-
     private void updateEssenInformation() throws SQLException {
-
         essen.updateInformations();
+    }
+    //endregion
 
+    //region Methoden für den Main-Screen
+    public void resetAllStats() {
+        try {
+            tableManager.dropAllTable();
+            System.out.println("Alle Tabellen gelöscht");
+            while (!menschen.isEmpty()){
+                menschen.remove();
+                menschen.toFirst();
+            }
+            while (!zombies.isEmpty()){
+                zombies.remove();
+                zombies.toFirst();
+            }
+            tableManager.createAllTable();
+            tableManager.fillAllTable();
+            recieveAllInformation();
+            updateAllInformation();
+            countZombies();
+            countHuman();
+        } catch (SQLException e) {
+            System.err.println("Tabellen konnten nicht gelöscht werden: "+e.getMessage());
+        }
+    }
+
+    public void tryToFeedHuman() {
+        for (int j = 0; j < lebendeZombies; j++) {
+            int random = (int) (Math.random()*100+1);
+            //System.out.println("random: "+random);
+            if(random<=20 && lebendeMenschen>0){
+                //System.out.println("menschen: "+lebendeMenschen);
+                //System.out.println("zomBefore: "+ lebendeZombies);
+                int randomHuman = (int) (Math.random()*lebendeMenschen)+1;
+                //System.out.println("mensch: "+randomHuman+".");
+                menschen.toFirst();
+                for (int i = 2; i <= randomHuman; i++) {
+                    menschen.next();
+                }
+                //System.out.println("menschL: "+ menschen.getContent().getId());
+                killHuman(menschen.getContent().getId());
+                addZombie();
+                try {
+                    int infizierteMenschen = getInfizierteMenschenVonZombie(j+1);
+                    //System.out.println("zombie: "+(j+1));
+                    tableManager.getStmt().execute("UPDATE Zom_Zombie SET infiziert = "+infizierteMenschen+1+", lebt = 1 WHERE Zom_Zombie.zID = 1;");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    countHuman();
+                    //System.out.println("neueMenschen: "+lebendeMenschen);
+                    //System.out.println("zomAfter: "+ lebendeZombies);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void humanTryToGetWeapon(){
+        if(waffen.getBestand() > 0){
+            try {
+                int bestand = waffen.getBestand() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Waffen SET bestand = "+bestand+";");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void menschenDurst(){
+        menschen.toFirst();
+        try {
+            int durst = menschen.getContent().getDurst() + 1;
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
+        try {
+
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst = 5;");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
+    }
+
+    public void useWater() {
+        if (trinken.getVorrat() > 0) {
+            try {
+                int vorrat = trinken.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = " + vorrat + ";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            menschen.toFirst();
+            if (menschen.getContent().getDurst() >= 0 && menschen.getContent().isLebt()) {
+                try {
+                    int durst = menschen.getContent().getDurst() - 1;
+                    tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                menschen.next();
+                System.out.println("die" + menschen.getContent().getDurst());
+            }
+        }
+    }
+
+    public void eat(){
+        if(essen.getVorrat() > 0){
+            try {
+                int vorrat = essen.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorrat+";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void useMedi(){
+        if(medikament.getVorrat() > 0){
+            try {
+                int vorrat = essen.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Medikament SET Vorrat = "+vorrat+";");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void killHuman(int humanID) {
+        try {
+            tableManager.getStmt().execute("DELETE FROM Zom_Menschen WHERE Zom_Menschen.meID = "+humanID+";");
+            //System.out.println("menschTot: "+menschen.getContent().getId());
+            menschen.remove();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void addZombie(){
+        try {
+            tableManager.getStmt().execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
+                    "VALUES (0,1);");
+            zombies.append(new Zombie(lebendeZombies+1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //endregion
+
+    //region get-Methoden
+    private TableManager getTableManager() {
+        return tableManager;
     }
 
     public int getLebendeMenschen() {
@@ -273,272 +366,55 @@ public class Logic {
         return lebendeZombies;
     }
 
-    public void tryToFeedHuman() {
-
-        for (int j = 0; j < lebendeZombies; j++) {
-            int random = (int) (Math.random()*100+1);
-            //System.out.println("random: "+random);
-            if(random<=20 && lebendeMenschen>0){
-                //System.out.println("menschen: "+lebendeMenschen);
-                //System.out.println("zomBefore: "+ lebendeZombies);
-                int randomHuman = (int) (Math.random()*lebendeMenschen)+1;
-                //System.out.println("mensch: "+randomHuman+".");
-                menschen.toFirst();
-                for (int i = 2; i <= randomHuman; i++) {
-                    menschen.next();
-                }
-                //System.out.println("menschL: "+ menschen.getContent().getId());
-                killHuman(menschen.getContent().getId());
-                addZombie();
-                try {
-                    int infizierteMenschen = infizierteMenschen(j+1);
-                    //System.out.println("zombie: "+(j+1));
-                    tableManager.getStmt().execute("UPDATE Zom_Zombie SET infiziert = "+infizierteMenschen+1+", lebt = 1 WHERE Zom_Zombie.zID = 1;");
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    countHuman();
-                    //System.out.println("neueMenschen: "+lebendeMenschen);
-                    //System.out.println("zomAfter: "+ lebendeZombies);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private int infizierteMenschen(int id) throws SQLException {
+    private int getInfizierteMenschenVonZombie(int id) throws SQLException {
         ResultSet result= tableManager.getStmt().executeQuery("SELECT infiziert FROM Zom_Zombie WHERE Zom_Zombie.zID = "+id+";");
         result.next();
         return result.getInt("infiziert");
-
     }
-
-    private void killHuman(int humanID) {
-        try {
-            tableManager.getStmt().execute("DELETE FROM Zom_Menschen WHERE Zom_Menschen.meID = "+humanID+";");
-            //System.out.println("menschTot: "+menschen.getContent().getId());
-            menschen.remove();
-        } catch (SQLException e) {
-
-
-        }
-    }
-
-    private void addZombie(){
-        try {
-            tableManager.getStmt().execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
-                    "VALUES (0,1);");
-            zombies.append(new Zombie(lebendeZombies+1));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void humanTryToGetWeapon(){
-
-        if(waffen.getBestand() > 0){
-
-            try {
-                int bestand = waffen.getBestand() - 1;
-                tableManager.getStmt().execute("UPDATE Zom_Waffen SET bestand = "+bestand+";");
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-
-    }
-
+    //endregion
 
     public void menschenBeduerfnisse(){
-
         menschen.toFirst();
-
         try {
             int durst = menschen.getContent().getDurst() + 1;
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
             int hunger = menschen.getContent().getHunger() + 1;
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-          //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
-
-            try {
-
-                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst >= 5;");
-                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.hunger >= 8;");
-
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
-
+        //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
+        try {
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst >= 5;");
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.hunger >= 8;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
     }
 
     public void krankWerden(){
-
         menschen.toFirst();
-
         int random = (int) (Math.random()*11) + 1;
-
         if(random == 4){
-
             try {
-
-                int krank = menschen.getContent().isKrank() + 1;
+                int krank = menschen.getContent().getKrankheit() + 1;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
-
         if(random == 6){
-
             try {
 
-                int krank = menschen.getContent().isKrank() + 2;
+                int krank = menschen.getContent().getKrankheit() + 2;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
 
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-
         }
-
-
     }
-
-
-
-
-    public void useWater() {
-
-        if (trinken.getVorrat() >= 0) {
-
-            try {
-                int vorrat = trinken.getVorrat() - 1;
-                tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = " + vorrat + ";");
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            menschen.toFirst();
-
-                if (menschen.getContent().getDurst() >= 0 && menschen.getContent().isLebt()) {
-
-                    try {
-                        int durst = menschen.getContent().getDurst() - 1;
-                        tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    menschen.next();
-
-                    System.out.println("die"+menschen.getContent().getDurst());
-
-                }
-
-            }
-
-    }
-
-    public void eat(){
-
-        if(essen.getVorrat() > 0){
-
-            try {
-                int vorrat = essen.getVorrat() - 1;
-                tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorrat+";");
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            menschen.toFirst();
-
-            if (menschen.getContent().getHunger() >= 0 && menschen.getContent().isLebt()) {
-
-                try {
-                    int hunger = menschen.getContent().getHunger() - 1;
-                    tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                menschen.next();
-
-
-
-            }
-
-        }
-
-
-    }
-
-
-
-
-
-
-
-
-    public void useMedi(){
-
-        if (medikament.getVorrat() >= 0) {
-
-            try {
-                int vorrat = medikament.getVorrat() - 1;
-                tableManager.getStmt().execute("UPDATE Zom_Medikament SET Vorrat = " + vorrat + ";");
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            menschen.toFirst();
-
-            if (menschen.getContent().isKrank() > 0 && menschen.getContent().isLebt()) {
-
-                try {
-                    int krank = menschen.getContent().isKrank() - 1;
-                    tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                menschen.next();
-
-
-
-            }
-
-        }
-
-    }
-
-
 }

@@ -29,6 +29,8 @@ public class Trinken {
         ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Wasserquelle ;");
         results.next();
 
+
+
             vorrat = results.getInt("Vorrat");
 
         }

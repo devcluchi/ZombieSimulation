@@ -333,16 +333,39 @@ public class Logic {
                 e.printStackTrace();
             }
         }
+        menschen.toFirst();
+        if (menschen.getContent().getHunger() >= 0 && menschen.getContent().isLebt()) {
+            try {
+                int hunger = menschen.getContent().getHunger() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            menschen.next();
+
+        }
     }
 
     public void useMedi(){
         if(medikament.getVorrat() > 0){
             try {
-                int vorrat = essen.getVorrat() - 1;
+                int vorrat = medikament.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Medikament SET Vorrat = "+vorrat+";");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+
+        menschen.toFirst();
+        if (menschen.getContent().getKrankheit() >= 0 && menschen.getContent().isLebt()) {
+            try {
+                int krank = menschen.getContent().getKrankheit() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            menschen.next();
+
         }
     }
 

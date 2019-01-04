@@ -5,7 +5,6 @@ import java.sql.*;
 public class TableManager {
     private Connection con;
     private Statement stmt;
-    private boolean humanTableFilled,zombieTableFilled,weatherTableFilled,weaponsTableFilled,enviromentTableFilled,waterspotsTableFilled,predatorsTableFilled,animalTableFilled,foodTableFilled,medicinesTableFilled;
 
 
     public TableManager(){
@@ -15,27 +14,20 @@ public class TableManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        createAllTable();
-        if (testAllTablesFilled()) {
-            System.out.println("Die Tabellen sind schön befüllt");
-        }else {
+        try {
+            createAllTable();
             fillAllTable();
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
         }
-    }
 
-    private boolean testAllTablesFilled() {
-        if (humanTableFilled && zombieTableFilled && weatherTableFilled && weaponsTableFilled && enviromentTableFilled && waterspotsTableFilled && predatorsTableFilled && animalTableFilled && foodTableFilled && medicinesTableFilled){
-            return true;
-        }
-        return false;
     }
-
 
     public void fillAllTable(){
         try {
             for (int i = 0; i < 30; i++) {
                 stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt,hilfe) " +
-                        "VALUES (0,0,4,0,0,1,0);");
+                        "VALUES (0,0,0,0,0,1,0);");
             }
             stmt.execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
                     "VALUES (0,1);");
@@ -66,11 +58,11 @@ public class TableManager {
                     "VALUES ('Sonnig');");
 
         } catch (SQLException e) {
-            System.err.println("Fehler beim Befüllen der Tabllen: "+e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public void createAllTable() {
+    public void createAllTable() throws SQLException {
         createHuman();
         createZombies();
         createWeather();
@@ -83,164 +75,111 @@ public class TableManager {
         createMedicines();
     }
 
-    public void dropAllTable() {
-        try {
-            stmt.execute("DROP TABLE Zom_Menschen");
-            stmt.execute("DROP TABLE Zom_Zombie");
-            stmt.execute("DROP TABLE Zom_Wetter");
-            stmt.execute("DROP TABLE Zom_Waffen");
-            stmt.execute("DROP TABLE Zom_Umwelt");
-            stmt.execute("DROP TABLE Zom_Wasserquelle");
-            stmt.execute("DROP TABLE Zom_Raubtiere");
-            stmt.execute("DROP TABLE Zom_Nutztiere");
-            stmt.execute("DROP TABLE Zom_Essen");
-            stmt.execute("DROP TABLE Zom_Medikament");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void createHuman() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Menschen (" +
-                    "meID int NOT NULL AUTO_INCREMENT," +
-                    "krank bit ," +
-                    "hunger int ," +
-                    "durst int ," +
-                    "bewaffnet bit ,"+
-                    "untergekommen bit  , "+
-                    "lebt bit   ,"+
-                    "hilfe bit,"+
-                    "PRIMARY KEY (meID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            humanTableFilled = true;
-        }
-    }
-
-    public void createZombies() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Zombie (" +
-                    "zID int NOT NULL AUTO_INCREMENT," +
-                    "infiziert int," +
-                    "lebt bit," +
-                    "PRIMARY KEY (zID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            zombieTableFilled = true;
-        }
-    }
-
-    public void createWeather() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Wetter (" +
-                    "weID int NOT NULL AUTO_INCREMENT," +
-                    "Zustand varchar (255)," +
-                    "PRIMARY KEY (weID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            weatherTableFilled = true;
-        }
+    public void dropAllTable() throws SQLException {
+        stmt.execute("DROP TABLE Zom_Menschen");
+        stmt.execute("DROP TABLE Zom_Zombie");
+        stmt.execute("DROP TABLE Zom_Wetter");
+        stmt.execute("DROP TABLE Zom_Waffen");
+        stmt.execute("DROP TABLE Zom_Umwelt");
+        stmt.execute("DROP TABLE Zom_Wasserquelle");
+        stmt.execute("DROP TABLE Zom_Raubtiere");
+        stmt.execute("DROP TABLE Zom_Nutztiere");
+        stmt.execute("DROP TABLE Zom_Essen");
+        stmt.execute("DROP TABLE Zom_Medikament");
 
     }
 
-    public void createWeapons() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Waffen (" +
-                    "wID int NOT NULL AUTO_INCREMENT," +
-                    "Bestand int," +
-                    "Effektivität int, "+
-                    "PRIMARY KEY (wID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            weaponsTableFilled = true;
-        }
+    public void createHuman() throws SQLException {
+        stmt.execute("CREATE TABLE Zom_Menschen (" +
+                "meID int NOT NULL AUTO_INCREMENT," +
+                "krank int ," +
+                "hunger int ," +
+                "durst int ," +
+                "bewaffnet bit ,"+
+                "untergekommen bit  , "+
+                "lebt bit   ,"+
+                "hilfe bit,"+
+                "PRIMARY KEY (meID)" +
+                ");");
     }
 
-    public void createEnviroment() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Umwelt (" +
-                    "uID int NOT NULL AUTO_INCREMENT," +
-                    "Zustand varchar (255)," +
-                    "PRIMARY KEY (uID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            enviromentTableFilled = true;
-        }
+    public void createZombies() throws SQLException {
+        stmt.execute("CREATE TABLE Zom_Zombie (" +
+                "zID int NOT NULL AUTO_INCREMENT," +
+                "infiziert int," +
+                "lebt bit," +
+                "PRIMARY KEY (zID)" +
+                ");");
     }
 
-    public void createWaterspots() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Wasserquelle (" +
-                    "waID int NOT NULL AUTO_INCREMENT," +
-                    "Vorrat int NOT NULL ," +
-                    "PRIMARY KEY (waID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            waterspotsTableFilled = true;
-        }
-    }
-
-    public void createPredators() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Raubtiere (" +
-                    "rID int NOT NULL AUTO_INCREMENT," +
-                    "Gefrässigkeit int," +
-                    "Population int,"+
-                    "PRIMARY KEY (rID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            predatorsTableFilled = true;
-        }
-    }
-
-    public void createAnimals() {
-        try {
-            stmt.execute("CREATE TABLE Zom_Nutztiere (" +
-                    "nID int NOT NULL AUTO_INCREMENT," +
-                    "Bestand int," +
-                    "Verarbeitungsqualität int,"+
-                    "PRIMARY KEY (nID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            animalTableFilled = true;
-        }
-    }
-
-    public void createFood(){
-        try {
-            stmt.execute("CREATE TABLE Zom_Essen (" +
-                    "eID int NOT NULL AUTO_INCREMENT," +
-                    "Vorrat int ," +
-                    "PRIMARY KEY (eID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            foodTableFilled = true;
-        }
+    public void createWeather() throws SQLException {
+        stmt.execute("CREATE TABLE Zom_Wetter (" +
+                "weID int NOT NULL AUTO_INCREMENT," +
+                "Zustand varchar (255)," +
+                "PRIMARY KEY (weID)" +
+                ");");
 
     }
 
-    public void createMedicines(){
-        try {
-            stmt.execute("CREATE TABLE Zom_Medikament (" +
-                    "mID int NOT NULL AUTO_INCREMENT," +
-                    "wirksamkeit int  ," +
-                    "Vorrat int,"+
-                    "PRIMARY KEY (mID)" +
-                    ");");
-        } catch (SQLException e) {
-            System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());
-            medicinesTableFilled = true;
-        }
+    public void createWeapons() throws SQLException {
+        stmt.execute("CREATE TABLE Zom_Waffen (" +
+                "wID int NOT NULL AUTO_INCREMENT," +
+                "Bestand int," +
+                "Effektivität int, "+
+                "PRIMARY KEY (wID)" +
+                ");");
+    }
+
+    public void createEnviroment() throws SQLException {
+        stmt.execute("CREATE TABLE Zom_Umwelt (" +
+                "uID int NOT NULL AUTO_INCREMENT," +
+                "Zustand varchar (255)," +
+                "PRIMARY KEY (uID)" +
+                ");");
+    }
+
+    public void createWaterspots() throws SQLException {
+        stmt.execute("CREATE TABLE Zom_Wasserquelle (" +
+                "waID int NOT NULL AUTO_INCREMENT," +
+                "Vorrat int NOT NULL ," +
+                "PRIMARY KEY (waID)" +
+                ");");
+    }
+
+    public void createPredators() throws SQLException{
+        stmt.execute("CREATE TABLE Zom_Raubtiere (" +
+                "rID int NOT NULL AUTO_INCREMENT," +
+                "Gefrässigkeit int," +
+                "Population int,"+
+                "PRIMARY KEY (rID)" +
+                ");");
+    }
+
+    public void createAnimals() throws SQLException{
+        stmt.execute("CREATE TABLE Zom_Nutztiere (" +
+                "nID int NOT NULL AUTO_INCREMENT," +
+                "Bestand int," +
+                "Verarbeitungsqualität int,"+
+                "PRIMARY KEY (nID)" +
+                ");");
+    }
+
+    public void createFood() throws SQLException{
+        stmt.execute("CREATE TABLE Zom_Essen (" +
+                "eID int NOT NULL AUTO_INCREMENT," +
+                "Vorrat int ," +
+                "PRIMARY KEY (eID)" +
+                ");");
+
+    }
+
+    public void createMedicines() throws SQLException{
+        stmt.execute("CREATE TABLE Zom_Medikament (" +
+                "mID int NOT NULL AUTO_INCREMENT," +
+                "wirksamkeit int  ," +
+                "Vorrat int,"+
+                "PRIMARY KEY (mID)" +
+                ");");
     }
 
     public Statement getStmt() {

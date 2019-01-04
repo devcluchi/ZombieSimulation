@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class Mensch {
 
-    private boolean krank, bewaffnet, untergekommen, lebt, hilfe;
-    private int hunger, durst, id;
+    private boolean  bewaffnet, untergekommen, lebt, hilfe;
+    private int krank, hunger, durst, id;
 
     private Connection con;
     private Statement stmt;
@@ -58,7 +58,7 @@ public class Mensch {
 
     }
 
-    public boolean isKrank() {
+    public int isKrank() {
         return krank;
     }
 
@@ -93,11 +93,6 @@ public class Mensch {
     public void updateInformations() throws SQLException {
             ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Menschen WHERE meID="+id+";");
             results.next();
-            if(results.getString("krank") == "0"){
-                krank=false;
-            }else {
-                krank= true;
-            }
             if(results.getString("bewaffnet") == "0"){
                 bewaffnet=false;
             }else {
@@ -118,8 +113,10 @@ public class Mensch {
             }else {
                 hilfe= true;
             }
+            krank = results.getInt("krank");
             hunger = results.getInt("hunger");
             durst = results.getInt("durst");
+
 
 
 

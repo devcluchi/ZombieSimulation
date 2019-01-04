@@ -35,12 +35,7 @@ public class Medikament {
         ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Medikament ;");
         results.next();
 
-
-
             wirksamkeit = results.getInt("wirksamkeit");
-
-
-
 
             vorrat = results.getInt("Vorrat");
 

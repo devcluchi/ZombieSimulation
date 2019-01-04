@@ -35,6 +35,8 @@ public class MainScreen extends GraphicalObject {
         drawTool.setFont(font);
         drawTool.drawText(250,80,""+logic.getLebendeMenschen());
         drawTool.drawText(250,130,""+logic.getLebendeZombies());
+        drawTool.drawText(950,100,"wasser");
+        drawTool.drawText(850,100,"med");
     }
 
     @Override
@@ -44,29 +46,37 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[2];
+        buttons = new Button[4];
 
-            buttons[0] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
-            uiController.drawObject(buttons[0]);
+        buttons[0] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        uiController.drawObject(buttons[0]);
 
-            buttons[1] = new Button(1100,75,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
-            uiController.drawObject(buttons[1]);
+        buttons[1] = new Button(1100,75,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        uiController.drawObject(buttons[1]);
+
+        buttons[2] = new Button(1000,100,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        uiController.drawObject(buttons[2]);
+
+        buttons[3] = new Button(900,100,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        uiController.drawObject(buttons[3]);
 
     }
 
 
     private void updateButtons(){
-
-            if(buttons[0].isHit()){
-               logic.resetAllStats();
-               System.exit(0);
-
-
-            }
-            if(buttons[1].isHit()){
-                simNextDay();
-
-            }
+        if(buttons[0].isHit()){
+            logic.resetAllStats();
+            System.exit(0);
+        }
+        if(buttons[1].isHit()){
+            simNextDay();
+        }
+        if (buttons[2].isHit()){
+            logic.useWater();
+        }
+        if (buttons[3].isHit()){
+            logic.useMedi();
+        }
     }
 
 

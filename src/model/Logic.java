@@ -186,7 +186,6 @@ public class Logic {
             zombies.getContent().updateInformations();
             zombies.next();
         }
-        countZombies();
 
     }
 
@@ -196,7 +195,6 @@ public class Logic {
             menschen.getContent().updateInformations();
             menschen.next();
         }
-        countHuman();
     }
 
 
@@ -276,28 +274,38 @@ public class Logic {
     }
 
     public void tryToFeedHuman() {
+
         for (int j = 0; j < lebendeZombies; j++) {
             int random = (int) (Math.random()*100+1);
-            if(random<20){
-                System.out.println(lebendeMenschen);
+            //System.out.println("random: "+random);
+            if(random<=20 && lebendeMenschen>0){
+                //System.out.println("menschen: "+lebendeMenschen);
+                //System.out.println("zomBefore: "+ lebendeZombies);
                 int randomHuman = (int) (Math.random()*lebendeMenschen)+1;
+                //System.out.println("mensch: "+randomHuman+".");
                 menschen.toFirst();
-                for (int i = 1; i <= randomHuman; i++) {
+                for (int i = 2; i <= randomHuman; i++) {
                     menschen.next();
                 }
-                killHuman(randomHuman+1);
+                //System.out.println("menschL: "+ menschen.getContent().getId());
+                killHuman(menschen.getContent().getId());
                 addZombie();
-                /**
-                 * Die untere Try-Catch ist nur zum Probieren
-                 */
                 try {
-                    int infizierteMenschen = infizierteMenschen(randomHuman);
+                    int infizierteMenschen = infizierteMenschen(j+1);
+                    //System.out.println("zombie: "+(j+1));
                     tableManager.getStmt().execute("UPDATE Zom_Zombie SET infiziert = "+infizierteMenschen+1+", lebt = 1 WHERE Zom_Zombie.zID = 1;");
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                updateAllInformation();
+
+                try {
+                    countHuman();
+                    //System.out.println("neueMenschen: "+lebendeMenschen);
+                    //System.out.println("zomAfter: "+ lebendeZombies);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -305,13 +313,14 @@ public class Logic {
     private int infizierteMenschen(int id) throws SQLException {
         ResultSet result= tableManager.getStmt().executeQuery("SELECT infiziert FROM Zom_Zombie WHERE Zom_Zombie.zID = "+id+";");
         result.next();
-        return result.getInt(1);
+        return result.getInt("infiziert");
 
     }
 
     private void killHuman(int humanID) {
         try {
             tableManager.getStmt().execute("DELETE FROM Zom_Menschen WHERE Zom_Menschen.meID = "+humanID+";");
+            //System.out.println("menschTot: "+menschen.getContent().getId());
             menschen.remove();
         } catch (SQLException e) {
 

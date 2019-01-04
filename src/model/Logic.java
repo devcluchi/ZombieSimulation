@@ -356,19 +356,68 @@ public class Logic {
 
     }
 
-    public void useWater(){
 
-        if(trinken.getVorrat() > 0){
+    public void menschenDurst(){
+
+        menschen.toFirst();
+
+        try {
+            int durst = menschen.getContent().getDurst() + 1;
+            tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+          //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
 
             try {
-                int vorrat = trinken.getVorrat() - 1;
-                tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = "+vorrat+";");
+
+                tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst = 5;");
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-        }
+            //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
+
+    }
+
+
+
+
+    public void useWater() {
+
+        if (trinken.getVorrat() > 0) {
+
+            try {
+                int vorrat = trinken.getVorrat() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = " + vorrat + ";");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            menschen.toFirst();
+
+                if (menschen.getContent().getDurst() >= 0 && menschen.getContent().isLebt()) {
+
+                    try {
+                        int durst = menschen.getContent().getDurst() - 1;
+                        tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    menschen.next();
+
+                    System.out.println("die"+menschen.getContent().getDurst());
+
+                }
+
+            }
 
     }
 

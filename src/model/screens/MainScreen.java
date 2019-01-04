@@ -58,12 +58,14 @@ public class MainScreen extends GraphicalObject {
     private void updateButtons(){
 
             if(buttons[0].isHit()){
-                logic.resetAllStats();
-                System.exit(0);
+               logic.resetAllStats();
+               System.exit(0);
+
 
             }
             if(buttons[1].isHit()){
                 simNextDay();
+
             }
     }
 
@@ -73,6 +75,6 @@ public class MainScreen extends GraphicalObject {
         logic.updateAllInformation();
         logic.tryToFeedHuman();
         logic.humanTryToGetWeapon();
-        logic.useWater();
+
     }
 }

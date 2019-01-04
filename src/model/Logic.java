@@ -472,7 +472,7 @@ public class Logic {
             try {
                 int vorrat = essen.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorrat+";");
-                //1
+
 
             } catch (SQLException e) {
                 e.printStackTrace();

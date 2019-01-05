@@ -77,7 +77,7 @@ public class MainScreen extends GraphicalObject {
             logic.useWater();
         }
         if (buttons[3].isHit()){
-            logic.useMedi();
+            logic.useAnimal();
         }
         if (buttons[4].isHit()){
             logic.resetAllStats();
@@ -87,10 +87,12 @@ public class MainScreen extends GraphicalObject {
 
     public void simNextDay(){
         System.out.println("Hallo");
-        logic.updateAllInformation();
         logic.tryToFeedHuman();
         logic.humanTryToGetWeapon();
         logic.menschenBeduerfnisse();
         logic.krankWerden();
+        logic.animalLife();
+        logic.animalFight();
+        logic.updateAllInformation();
     }
 }

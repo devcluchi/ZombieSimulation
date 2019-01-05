@@ -45,6 +45,18 @@ public class Raubtiere {
 
         }
 
+    public int getPopulation(){
+
+        return population;
+
+    }
+
+    public int getGefraessigkeit(){
+
+        return gefrässigkeit;
+
+    }
+
 
 
     }

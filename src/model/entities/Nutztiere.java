@@ -44,4 +44,18 @@ public class Nutztiere {
 
         }
 
+
+    public int getBestand(){
+
+        return bestand;
+
+    }
+
+
+    public int getVerarbeitungsqualität(){
+
+        return verarbeitungsqualität;
+
+    }
+
     }

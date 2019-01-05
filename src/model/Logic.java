@@ -300,11 +300,38 @@ public class Logic {
         }
     }
 
+    public void useAnimal() {
+
+        if (nutztiere.getBestand() > 0){
+            try {
+                int bestand = nutztiere.getBestand() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Bestand = " + bestand + ";");
+
+                int vorratW = trinken.getVorrat() + nutztiere.getVerarbeitungsqualität() / 3;
+                tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = " + vorratW + ";");
+
+                int vorratE = essen.getVorrat() + nutztiere.getVerarbeitungsqualität()/2;
+                tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorratE+";");
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+
+
+
+    }
+
     public void useWater() {
         if (trinken.getVorrat() > 0) {
             try {
                 int vorrat = trinken.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = " + vorrat + ";");
+                trinken.updateInformations();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -314,6 +341,7 @@ public class Logic {
                 try {
                     int durst = menschen.getContent().getDurst() - 1;
                     tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
+                    menschen.getContent().updateInformations();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -328,6 +356,7 @@ public class Logic {
             try {
                 int vorrat = essen.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorrat+";");
+                essen.updateInformations();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -338,6 +367,7 @@ public class Logic {
             try {
                 int hunger = menschen.getContent().getHunger() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
+                menschen.getContent().updateInformations();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -351,6 +381,7 @@ public class Logic {
             try {
                 int vorrat = medikament.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Medikament SET Vorrat = "+vorrat+";");
+                medikament.updateInformations();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -361,6 +392,7 @@ public class Logic {
             try {
                 int krank = menschen.getContent().getKrankheit() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
+                menschen.getContent().updateInformations();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -418,5 +450,78 @@ public class Logic {
         result.next();
         return result.getInt("infiziert");
     }
+
+    public void animalLife(){
+
+        int life = (int)(Math.random()*11)+1;
+
+        if(life <= 5 ){
+            try {
+
+                int population = raubtiere.getPopulation() - 1;
+                tableManager.getStmt().execute("UPDATE Zom_Raubtiere SET Population = " + population + ";");
+                raubtiere.updateInformations();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+
+            try {
+
+                int population = raubtiere.getPopulation() + 1;
+                tableManager.getStmt().execute("UPDATE Zom_Raubtiere SET Population = " + population + ";");
+                raubtiere.updateInformations();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if(life <= 3){
+
+            try {
+
+                int bestand = nutztiere.getBestand() + life;
+                tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Bestand = " + bestand + ";");
+                nutztiere.updateInformations();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+
+    public void animalFight(){
+
+        try {
+
+            int hunger = (int)(Math.random()*11)+1;
+            tableManager.getStmt().execute("UPDATE Zom_Raubtiere SET Gefrässigkeit = " + hunger + ";");
+
+            int bestand = nutztiere.getBestand() - raubtiere.getGefraessigkeit()/2;
+            System.out.println(nutztiere.getBestand());
+            tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Bestand = " + bestand + ";");
+
+            nutztiere.updateInformations();
+            raubtiere.updateInformations();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
     //endregion
 }

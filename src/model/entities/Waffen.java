@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class Waffen {
 
-    public int bestand;
+    private int bestand;
 
-    public int effektivität;
+    private int effektivität;
 
 
     private Connection con;
@@ -49,6 +49,9 @@ public class Waffen {
 
     }
 
+    public int getEffektivität() {
+        return effektivität;
     }
+}
 
 

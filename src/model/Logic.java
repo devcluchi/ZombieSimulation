@@ -411,6 +411,26 @@ public class Logic {
         }
     }
 
+    private void addHuman() {
+        try {
+            tableManager.getStmt().execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt,hilfe) " +
+                            "VALUES (2,0,0,0,0,1,0);");
+            menschen.append(new Mensch(lebendeMenschen+1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void killZombie(int zombieID) {
+        try {
+            tableManager.getStmt().execute("DELETE FROM Zom_Zombie WHERE Zom_Zombie.zID = "+zombieID+";");
+            zombies.remove();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void addZombie(){
         try {
             tableManager.getStmt().execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
@@ -521,6 +541,29 @@ public class Logic {
 
 
 
+    }
+
+    public void tryToKillZombie(){
+        if(waffen.getBestand()>0){
+            int random = (int) (Math.random()*100+1);
+            if(random<= waffen.getEffektivität()&& lebendeZombies>0) {
+                int randomZombie = (int) (Math.random() * lebendeZombies) + 1;
+                zombies.toFirst();
+                for (int i = 2; i <= randomZombie; i++) {
+                    zombies.next();
+                }
+                killZombie(zombies.getContent().getId());
+                addHuman();
+                try {
+                    int waffenBestand = waffen.getBestand()-1;
+                    //System.out.println("zombie: "+(j+1));
+                    tableManager.getStmt().execute("UPDATE Zom_Waffen SET Bestand = "+waffenBestand+", Effektivität = "+waffen.getEffektivität()+";");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     //endregion

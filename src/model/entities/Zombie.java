@@ -34,6 +34,7 @@ public class Zombie {
         infiziert = results.getInt("infiziert");
     }
 
-
-
+    public int getId() {
+        return id;
+    }
 }

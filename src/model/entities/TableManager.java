@@ -62,7 +62,7 @@ public class TableManager {
                     "VALUES ('Normal');");
 
             stmt.execute("INSERT INTO Zom_Waffen (Bestand, Effektivität) " +
-                    "VALUES (10,10);");
+                    "VALUES (10,70);");
 
 
             stmt.execute("INSERT INTO Zom_Wetter (Zustand) " +

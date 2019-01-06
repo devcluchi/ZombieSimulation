@@ -118,10 +118,5 @@ public class Mensch {
             krankheit = results.getInt("krank");
             hunger = results.getInt("hunger");
             durst = results.getInt("durst");
-
-
-
-
-
     }
 }

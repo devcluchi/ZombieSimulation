@@ -266,6 +266,9 @@ public class Logic {
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst >= 5;");
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.hunger >= 8;");
 
+            System.out.println("durst " +menschen.getContent().getDurst());
+            System.out.println("hunger " +menschen.getContent().getHunger());
+
             if(hunger >= 8 && durst >= 5 ){
 
                 killHuman(menschen.getContent().getId());
@@ -344,6 +347,7 @@ public class Logic {
                 int vorrat = trinken.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Wasserquelle SET Vorrat = " + vorrat + ";");
                 trinken.updateInformations();
+                System.out.println("Wasser "+ trinken.getVorrat());
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -369,6 +373,7 @@ public class Logic {
                 int vorrat = essen.getVorrat() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorrat+";");
                 essen.updateInformations();
+                System.out.println("Essen "+ essen.getVorrat());
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -568,6 +573,7 @@ public class Logic {
                     zombies.next();
                 }
                 killZombie(zombies.getContent().getId());
+                System.out.println("Waffen "+ waffen.getBestand());
                 try {
                     int waffenBestand = waffen.getBestand()-1;
                     //System.out.println("zombie: "+(j+1));

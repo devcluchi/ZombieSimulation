@@ -116,5 +116,6 @@ public class MainScreen extends GraphicalObject {
         logic.animalLife();
         logic.animalFight();
         logic.updateAllInformation();
+
     }
 }

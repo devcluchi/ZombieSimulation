@@ -95,11 +95,7 @@ public class Mensch {
     public void updateInformations() throws SQLException {
             ResultSet results = stmt.executeQuery("SELECT * FROM Zom_Menschen WHERE meID="+id+";");
             results.next();
-            if(results.getString("bewaffnet") == "0"){
-                bewaffnet=false;
-            }else {
-                bewaffnet= true;
-            }
+
             if(results.getString("untergekommen") == "0"){
                 untergekommen=false;
             }else {

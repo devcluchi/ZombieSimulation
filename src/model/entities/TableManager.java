@@ -20,7 +20,7 @@ public class TableManager {
         }
         createAllTable();
         if (testAllTablesFilled()) {
-            System.out.println("Die Tabellen sind schön befüllt");
+            System.out.println("Die Tabellen sind schon befüllt");
         }else {
             fillAllTable();
         }

@@ -5,6 +5,7 @@ import model.Logic;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -46,22 +47,26 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[5];
+        buttons = new Button[6];
 
-        buttons[0] = new Button(1205,25,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        buttons[0] = new Button(1205,25,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
         uiController.drawObject(buttons[0]);
 
-        buttons[1] = new Button(1100,75,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        buttons[1] = new Button(1100,75,"assets/images/buttons/playBasic.png","assets/images/buttons/playSelected.png");
         uiController.drawObject(buttons[1]);
 
-        buttons[2] = new Button(1000,100,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        buttons[2] = new Button(1000,100,"assets/images/buttons/drinkBasic.png","assets/images/buttons/drinkSelected.png");
         uiController.drawObject(buttons[2]);
 
-        buttons[3] = new Button(900,100,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        buttons[3] = new Button(900,100,"assets/images/buttons/mediBasic.png","assets/images/buttons/mediSelected.png");
         uiController.drawObject(buttons[3]);
 
-        buttons[4] = new Button(1205,125,"assets/images/buttons/mainScreenBasic_"+0+".png","assets/images/buttons/mainScreenSelected_"+0+".png");
+        buttons[4] = new Button(1205,125,"assets/images/buttons/replayBasic.png","assets/images/buttons/replaySelected.png");
         uiController.drawObject(buttons[4]);
+
+        buttons[5] = new Button(800,100,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        uiController.drawObject(buttons[5]);
+
 
     }
 
@@ -81,6 +86,9 @@ public class MainScreen extends GraphicalObject {
         }
         if (buttons[4].isHit()){
             logic.resetAllStats();
+        }
+        if(buttons[5].isHit()) {
+            logic.tryToKillZombie();
         }
     }
 

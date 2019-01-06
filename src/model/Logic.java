@@ -110,7 +110,7 @@ public class Logic {
     }
 
     private void countHuman() throws SQLException {
-        ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen;");
+        ResultSet countHuman = tableManager.getStmt().executeQuery("SELECT COUNT(meID) FROM Zom_Menschen WHERE lebt = 1;");
         countHuman.next();
         lebendeMenschen = countHuman.getInt(1);
     }
@@ -245,13 +245,16 @@ public class Logic {
     }
 
     public void humanTryToGetWeapon(){
-        if(waffen.getBestand() > 0){
+
+        int random = (int)(Math.random()*11)+1;
+        if(random <= 4){
             try {
-                int bestand = waffen.getBestand() - 1;
+                int bestand = waffen.getBestand() + 1;
                 tableManager.getStmt().execute("UPDATE Zom_Waffen SET bestand = "+bestand+";");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
         }
     }
 
@@ -262,16 +265,23 @@ public class Logic {
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
             int hunger = menschen.getContent().getHunger() + 1;
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //Hier solltest du den Menschen umbringen...weiß jetzt nicht wie du das geregelt hast
-        try {
+
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.durst >= 5;");
             tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.hunger >= 8;");
+
+            if(hunger >= 8 && durst >= 5 ){
+
+                killHuman(menschen.getContent().getId());
+
+            }
+
+            updateHumanInformation();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+
         //Hab das jetzt mit der lebt Variable gelöst kannst du ändern wie du es willst oder wir löschen die nicht wie du es vor hattest sondern setzen die Variable
     }
 
@@ -283,6 +293,7 @@ public class Logic {
                 int krank = menschen.getContent().getKrankheit() + 1;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
+                updateHumanInformation();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -293,6 +304,7 @@ public class Logic {
                 int krank = menschen.getContent().getKrankheit() + 2;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET lebt = 0 WHERE Zom_Menschen.krank >= 3;");
+                updateHumanInformation();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -403,7 +415,7 @@ public class Logic {
 
     private void killHuman(int humanID) {
         try {
-            tableManager.getStmt().execute("DELETE FROM Zom_Menschen WHERE Zom_Menschen.meID = "+humanID+";");
+            tableManager.getStmt().execute("DELETE FROM Zom_Menschen WHERE Zom_Menschen.meID = "+humanID+" ;");
             //System.out.println("menschTot: "+menschen.getContent().getId());
             menschen.remove();
         } catch (SQLException e) {
@@ -558,6 +570,7 @@ public class Logic {
                     int waffenBestand = waffen.getBestand()-1;
                     //System.out.println("zombie: "+(j+1));
                     tableManager.getStmt().execute("UPDATE Zom_Waffen SET Bestand = "+waffenBestand+", Effektivität = "+waffen.getEffektivität()+";");
+                    updateWaffenInformation();
 
                 } catch (SQLException e) {
                     e.printStackTrace();

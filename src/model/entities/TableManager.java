@@ -37,11 +37,15 @@ public class TableManager {
     public void fillAllTable(){
         try {
             for (int i = 0; i < 30; i++) {
-                stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, bewaffnet, untergekommen, lebt,hilfe) " +
-                        "VALUES (2,0,0,0,0,1,0);");
+                stmt.execute("INSERT INTO Zom_Menschen (krank, hunger, durst, untergekommen, lebt,hilfe) " +
+                        "VALUES (0,0,0,0,1,0);");
             }
-            stmt.execute("INSERT INTO Zom_Zombie(infiziert,lebt) "+
-                    "VALUES (0,1);");
+
+            for(int i = 0 ; i < 5; i++) {
+
+                stmt.execute("INSERT INTO Zom_Zombie(infiziert,lebt) " +
+                        "VALUES (0,1);");
+            }
 
             stmt.execute("INSERT INTO Zom_Essen (Vorrat) " +
                     "VALUES (20);");
@@ -110,7 +114,6 @@ public class TableManager {
                     "krank int ," +
                     "hunger int ," +
                     "durst int ," +
-                    "bewaffnet bit ,"+
                     "untergekommen bit  , "+
                     "lebt bit   ,"+
                     "hilfe bit,"+

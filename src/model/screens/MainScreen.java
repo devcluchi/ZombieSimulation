@@ -47,7 +47,7 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[6];
+        buttons = new Button[8];
 
         buttons[0] = new Button(1205,25,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
         uiController.drawObject(buttons[0]);
@@ -67,6 +67,12 @@ public class MainScreen extends GraphicalObject {
         buttons[5] = new Button(800,100,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
         uiController.drawObject(buttons[5]);
 
+        buttons[6] = new Button(800,200,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        uiController.drawObject(buttons[6]);
+
+        buttons[7] = new Button(800,300,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        uiController.drawObject(buttons[7]);
+
 
     }
 
@@ -82,13 +88,21 @@ public class MainScreen extends GraphicalObject {
             logic.useWater();
         }
         if (buttons[3].isHit()){
-            logic.useAnimal();
+            logic.useMedi();
         }
         if (buttons[4].isHit()){
             logic.resetAllStats();
         }
         if(buttons[5].isHit()) {
             logic.tryToKillZombie();
+        }
+
+        if(buttons[6].isHit()) {
+            logic.eat();
+        }
+
+        if(buttons[7].isHit()) {
+            logic.useAnimal();
         }
     }
 

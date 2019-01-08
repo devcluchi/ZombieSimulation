@@ -4,6 +4,7 @@ import control.framework.UIController;
 import model.Logic;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
+import view.framework.DrawableObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,16 +16,23 @@ public class MainScreen extends GraphicalObject {
     Button[] buttons;
     private Logic logic;
     private Font font;
-
+    private boolean killZombieMenu;
+    private UIController uiController;
+    private JTextField number;
 
     public MainScreen(UIController uiController) {
-
+        this.uiController = uiController;
         logic = new Logic();
 
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
         font = new Font("Comic Sans",Font.BOLD,28);
+        killZombieMenu = false;
+        /*number = new JTextField("Nummer");
+        number.setLocation(200, 200);
+        number.setSize(50, 50);
+         */
     }
 
 
@@ -38,6 +46,9 @@ public class MainScreen extends GraphicalObject {
         drawTool.drawText(250,130,""+logic.getLebendeZombies());
         drawTool.drawText(950,100,"wasser");
         drawTool.drawText(850,100,"med");
+        if(killZombieMenu){
+            drawTool.drawFilledRectangle(200,200,500,300);
+        }
     }
 
     @Override
@@ -47,7 +58,7 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[8];
+        buttons = new Button[9];
 
         buttons[0] = new Button(1205,25,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
         uiController.drawObject(buttons[0]);
@@ -73,7 +84,9 @@ public class MainScreen extends GraphicalObject {
         buttons[7] = new Button(800,300,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
         uiController.drawObject(buttons[7]);
 
-
+        buttons[8] = new Button(600,300,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
+        uiController.drawObject(buttons[8]);
+        buttons[8].setVisible(false);
     }
 
 
@@ -94,8 +107,13 @@ public class MainScreen extends GraphicalObject {
             logic.resetAllStats();
         }
         if(buttons[5].isHit()) {
-            logic.tryToKillZombie();
+            for (int i = 0; i < buttons.length; i++) {
+                buttons[i].setVisible(false);
+                killZombieMenu = true;
+            }
+            buttons[8].setVisible(true);
         }
+
 
         if(buttons[6].isHit()) {
             logic.eat();
@@ -103,6 +121,17 @@ public class MainScreen extends GraphicalObject {
 
         if(buttons[7].isHit()) {
             logic.useAnimal();
+        }
+
+        if (buttons[8].isHit()){
+            //System.out.println("lel");
+            for (int i = 0; i < buttons.length; i++) {
+                buttons[i].setVisible(true);
+                killZombieMenu = true;
+            }
+            buttons[8].setVisible(false);
+            killZombieMenu = false;
+            logic.tryToKillZombie();
         }
     }
 

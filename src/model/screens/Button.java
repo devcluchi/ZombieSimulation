@@ -16,7 +16,7 @@ public class Button extends GraphicalObject {
 
     //Attribute
     private int status;
-    private boolean hit;
+    private boolean hit, visible;
 
     //Referenzen
     private BufferedImage basic, selected;
@@ -45,6 +45,7 @@ public class Button extends GraphicalObject {
 
         status = 0;
         hit = false;
+        visible = true;
 
         boundingBox = new Rectangle2D.Double(this.x,this.y,width,height);
 
@@ -55,10 +56,12 @@ public class Button extends GraphicalObject {
      */
     @Override
     public void draw(DrawTool drawTool) {
-        if(status == 0){
-            drawTool.drawImage(basic,x,y);
-        }else if(status == 1){
-            drawTool.drawImage(selected,x,y);
+        if(visible) {
+            if (status == 0) {
+                drawTool.drawImage(basic, x, y);
+            } else if (status == 1) {
+                drawTool.drawImage(selected, x, y);
+            }
         }
     }
 
@@ -67,7 +70,7 @@ public class Button extends GraphicalObject {
      */
     @Override
     public void update(double dt) {
-        hit=false;
+        hit = false;
     }
 
     /**
@@ -75,10 +78,12 @@ public class Button extends GraphicalObject {
      */
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(e.getX()>= boundingBox.getX() && e.getX()<= boundingBox.getX() + boundingBox.getWidth() && e.getY() >= boundingBox.getY() && e.getY() <=  boundingBox.getY() + boundingBox.getHeight()){
-            status=1;
-        }else{
-            status = 0;
+        if(visible) {
+            if (e.getX() >= boundingBox.getX() && e.getX() <= boundingBox.getX() + boundingBox.getWidth() && e.getY() >= boundingBox.getY() && e.getY() <= boundingBox.getY() + boundingBox.getHeight()) {
+                status = 1;
+            } else {
+                status = 0;
+            }
         }
     }
 
@@ -87,8 +92,10 @@ public class Button extends GraphicalObject {
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(e.getX()>= boundingBox.getX() && e.getX()<= boundingBox.getX() + boundingBox.getWidth() && e.getY() >= boundingBox.getY() && e.getY() <=  boundingBox.getY() + boundingBox.getHeight()){
-            hit = true;
+        if(visible) {
+            if (e.getX() >= boundingBox.getX() && e.getX() <= boundingBox.getX() + boundingBox.getWidth() && e.getY() >= boundingBox.getY() && e.getY() <= boundingBox.getY() + boundingBox.getHeight()) {
+                hit = true;
+            }
         }
     }
 
@@ -100,5 +107,7 @@ public class Button extends GraphicalObject {
         return hit;
     }
 
-
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

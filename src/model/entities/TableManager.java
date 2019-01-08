@@ -78,7 +78,6 @@ public class TableManager {
     }
 
     public void createAllTable() {
-        createHuman();
         createZombies();
         createWeather();
         createWeapons();
@@ -88,6 +87,7 @@ public class TableManager {
         createAnimals();
         createFood();
         createMedicines();
+        createHuman();
     }
 
     public void dropAllTable() {
@@ -117,7 +117,15 @@ public class TableManager {
                     "untergekommen bit  , "+
                     "lebt bit   ,"+
                     "hilfe bit,"+
-                    "PRIMARY KEY (meID)" +
+                    "essenID int ," +
+                    "medikamentID int ," +
+                    "waffenID int ," +
+                    "wasserID int ," +
+                    "PRIMARY KEY (meID)," +
+                    "FOREIGN KEY (essenID) REFERENCES Zom_Essen(eID)," +
+                    "FOREIGN KEY (medikamentID) REFERENCES Zom_Medikament(mID)," +
+                    "FOREIGN KEY (waffenID) REFERENCES Zom_Waffen(wID)," +
+                    "FOREIGN KEY (wasserID) REFERENCES Zom_Wasserquelle(waID)" +
                     ");");
         } catch (SQLException e) {
             System.err.println("Fehler beim Anlegen einer Tablle: "+e.getMessage());

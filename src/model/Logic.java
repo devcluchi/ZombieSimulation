@@ -211,7 +211,7 @@ public class Logic {
 
     public void tryToFeedHuman() {
         for (int j = 0; j < lebendeZombies; j++) {
-            int random = (int) (Math.random()*100+1);
+            int random = (int) (Math.random()*100+1)- lebendeZombies;
 
             if(random<=20 && lebendeMenschen>0){
 
@@ -221,8 +221,10 @@ public class Logic {
                 for (int i = 2; i <= randomHuman; i++) {
                     menschen.next();
                 }
+                if(menschen.getContent().isLebt()) {
+                    addZombie();
+                }
                 killHuman(menschen.getContent().getId());
-                addZombie();
                 try {
                     int infizierteMenschen = getInfizierteMenschenVonZombie(j+1);
 

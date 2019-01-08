@@ -20,6 +20,8 @@ public class MainScreen extends GraphicalObject {
     private UIController uiController;
     private JTextField number;
 
+    private int days;
+
     public MainScreen(UIController uiController) {
         this.uiController = uiController;
         logic = new Logic();
@@ -42,6 +44,7 @@ public class MainScreen extends GraphicalObject {
         drawTool.drawImage(image,0,0);
         drawTool.setCurrentColor(255,255,255,255);
         drawTool.setFont(font);
+        drawTool.drawText(350,80,"Tag: "+ days);
         drawTool.drawText(250,80,""+logic.getLebendeMenschen());
         drawTool.drawText(250,130,""+logic.getLebendeZombies());
         drawTool.drawText(950,100,"wasser");
@@ -107,6 +110,7 @@ public class MainScreen extends GraphicalObject {
         }
         if (buttons[4].isHit()){
             logic.resetAllStats();
+            days = 0;
         }
         if(buttons[5].isHit()) {
             for (int i = 0; i < buttons.length; i++) {
@@ -140,6 +144,7 @@ public class MainScreen extends GraphicalObject {
 
     public void simNextDay(){
         System.out.println("Hallo");
+        days = days + 1;
         logic.tryToFeedHuman();
         logic.humanTryToGetWeapon();
         logic.menschenBeduerfnisse();

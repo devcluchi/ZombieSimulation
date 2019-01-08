@@ -114,6 +114,7 @@ public class Logic {
         countHuman.next();
         lebendeMenschen = countHuman.getInt(1);
     }
+
     //endregion
 
     //region Update-Methoden
@@ -483,11 +484,20 @@ public class Logic {
         return lebendeZombies;
     }
 
+    public int getWaffenVorrat(){
+
+       int waffenVorrat = waffen.getBestand();
+
+       return waffenVorrat;
+
+    }
+
     private int getInfizierteMenschenVonZombie(int id) throws SQLException {
         ResultSet result= tableManager.getStmt().executeQuery("SELECT infiziert FROM Zom_Zombie WHERE Zom_Zombie.zID = "+id+";");
         result.next();
         return result.getInt("infiziert");
     }
+
 
     public void animalLife(){
 

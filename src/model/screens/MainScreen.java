@@ -48,6 +48,8 @@ public class MainScreen extends GraphicalObject {
         drawTool.drawText(850,100,"med");
         if(killZombieMenu){
             drawTool.drawFilledRectangle(200,200,500,300);
+            drawTool.setCurrentColor(0,0,0,255);
+            drawTool.drawText(225,225,"Du hast noch" + logic.getWaffenVorrat() + " Waffen");
         }
     }
 

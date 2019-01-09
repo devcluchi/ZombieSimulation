@@ -19,18 +19,20 @@ public class MainScreen extends GraphicalObject {
     private boolean killZombieMenu;
     private UIController uiController;
     private JTextField number;
+    private NotizenScreen notizen;
 
     private int days;
 
     public MainScreen(UIController uiController) {
         this.uiController = uiController;
         logic = new Logic();
-
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
         font = new Font("Comic Sans",Font.BOLD,28);
         killZombieMenu = false;
+        notizen = new NotizenScreen(this);
+        uiController.drawObject(notizen);
         /*number = new JTextField("Nummer");
         number.setLocation(200, 200);
         number.setSize(50, 50);
@@ -63,7 +65,7 @@ public class MainScreen extends GraphicalObject {
 
 
     private void createButtons(UIController uiController) {
-        buttons = new Button[9];
+        buttons = new Button[11];
 
         buttons[0] = new Button(1205,25,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
         uiController.drawObject(buttons[0]);
@@ -92,6 +94,14 @@ public class MainScreen extends GraphicalObject {
         buttons[8] = new Button(600,300,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
         uiController.drawObject(buttons[8]);
         buttons[8].setVisible(false);
+
+        buttons[9] = new Button(200,100,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
+        uiController.drawObject(buttons[9]);
+
+        buttons[10] = new Button(100,100,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
+        uiController.drawObject(buttons[10]);
+        buttons[10].setVisible(false);
+
     }
 
 
@@ -139,6 +149,14 @@ public class MainScreen extends GraphicalObject {
             killZombieMenu = false;
             logic.tryToKillZombie();
         }
+        if(buttons[9].isHit()){
+            notizen.setVisible(true);
+            buttons[10].setVisible(true);
+        }
+        if(notizen.isVisible() && buttons[10].isHit()){
+            notizen.setVisible(false);
+            buttons[10].setVisible(false);
+        }
     }
 
 
@@ -153,5 +171,13 @@ public class MainScreen extends GraphicalObject {
         logic.animalFight();
         logic.updateAllInformation();
 
+    }
+
+    public Logic getLogic() {
+        return logic;
+    }
+
+    public UIController getUiController() {
+        return uiController;
     }
 }

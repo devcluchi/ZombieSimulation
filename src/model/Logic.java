@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Logic {
 
-    TableManager tableManager;
+    private TableManager tableManager;
     private List<Mensch> menschen;
     private List<Zombie> zombies;
     private Waffen waffen;
@@ -464,7 +464,7 @@ public class Logic {
     //endregion
 
     //region get-Methoden
-    private TableManager getTableManager() {
+    public TableManager getTableManager() {
         return tableManager;
     }
 
@@ -600,4 +600,8 @@ public class Logic {
     }
 
     //endregion
+
+
+
+
 }

@@ -49,8 +49,6 @@ public class MainScreen extends GraphicalObject {
         drawTool.drawText(350,80,"Tag: "+ days);
         drawTool.drawText(250,80,""+logic.getLebendeMenschen());
         drawTool.drawText(250,130,""+logic.getLebendeZombies());
-        drawTool.drawText(950,100,"wasser");
-        drawTool.drawText(850,100,"med");
         if(killZombieMenu){
             drawTool.drawFilledRectangle(200,200,500,300);
             drawTool.setCurrentColor(0,0,0,255);
@@ -67,35 +65,35 @@ public class MainScreen extends GraphicalObject {
     private void createButtons(UIController uiController) {
         buttons = new Button[11];
 
-        buttons[0] = new Button(1205,25,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
+        buttons[0] = new Button(1215,15,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
         uiController.drawObject(buttons[0]);
 
-        buttons[1] = new Button(1100,75,"assets/images/buttons/playBasic.png","assets/images/buttons/playSelected.png");
+        buttons[1] = new Button(1135,15,"assets/images/buttons/playBasic.png","assets/images/buttons/playSelected.png");
         uiController.drawObject(buttons[1]);
 
-        buttons[2] = new Button(1000,100,"assets/images/buttons/drinkBasic.png","assets/images/buttons/drinkSelected.png");
+        buttons[2] = new Button(975,15,"assets/images/buttons/drinkBasic.png","assets/images/buttons/drinkSelected.png");
         uiController.drawObject(buttons[2]);
 
-        buttons[3] = new Button(900,100,"assets/images/buttons/mediBasic.png","assets/images/buttons/mediSelected.png");
+        buttons[3] = new Button(1055,15,"assets/images/buttons/mediBasic.png","assets/images/buttons/mediSelected.png");
         uiController.drawObject(buttons[3]);
 
-        buttons[4] = new Button(1205,125,"assets/images/buttons/replayBasic.png","assets/images/buttons/replaySelected.png");
+        buttons[4] = new Button(1215,95,"assets/images/buttons/replayBasic.png","assets/images/buttons/replaySelected.png");
         uiController.drawObject(buttons[4]);
 
-        buttons[5] = new Button(800,100,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        buttons[5] = new Button(1055,95,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
         uiController.drawObject(buttons[5]);
 
-        buttons[6] = new Button(800,200,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        buttons[6] = new Button(895,15,"assets/images/buttons/foodBasic.png","assets/images/buttons/foodSelected.png");
         uiController.drawObject(buttons[6]);
 
-        buttons[7] = new Button(800,300,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        buttons[7] = new Button(975,95,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
         uiController.drawObject(buttons[7]);
 
         buttons[8] = new Button(600,300,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
         uiController.drawObject(buttons[8]);
         buttons[8].setVisible(false);
 
-        buttons[9] = new Button(200,100,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
+        buttons[9] = new Button(1135,95,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
         uiController.drawObject(buttons[9]);
 
         buttons[10] = new Button(100,100,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
@@ -125,8 +123,8 @@ public class MainScreen extends GraphicalObject {
         if(buttons[5].isHit()) {
             for (int i = 0; i < buttons.length; i++) {
                 buttons[i].setVisible(false);
-                killZombieMenu = true;
             }
+            killZombieMenu = true;
             buttons[8].setVisible(true);
         }
 
@@ -140,20 +138,28 @@ public class MainScreen extends GraphicalObject {
         }
 
         if (buttons[8].isHit()){
-            //System.out.println("lel");
             for (int i = 0; i < buttons.length; i++) {
-                buttons[i].setVisible(true);
-                killZombieMenu = true;
+                if(i!=10) {
+                    buttons[i].setVisible(true);
+                }
             }
             buttons[8].setVisible(false);
             killZombieMenu = false;
             logic.tryToKillZombie();
         }
         if(buttons[9].isHit()){
+            for (int i = 0; i < buttons.length; i++) {
+                buttons[i].setVisible(false);
+            }
             notizen.setVisible(true);
             buttons[10].setVisible(true);
         }
         if(notizen.isVisible() && buttons[10].isHit()){
+            for (int i = 0; i < buttons.length; i++) {
+                if(i !=8) {
+                    buttons[i].setVisible(true);
+                }
+            }
             notizen.setVisible(false);
             buttons[10].setVisible(false);
         }

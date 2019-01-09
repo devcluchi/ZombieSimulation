@@ -327,6 +327,10 @@ public class Logic {
 
                 int vorratE = essen.getVorrat() + nutztiere.getVerarbeitungsqualität()/2;
                 tableManager.getStmt().execute("UPDATE Zom_Essen SET Vorrat = "+vorratE+";");
+
+                int quali = (int)(Math.random()*30);
+                tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Verarbeitungsqualität = " + quali + ";");
+
                 updateTrinkenInformation();
                 updateEssenInformation();
                 updateNutztiereInformation();
@@ -508,9 +512,13 @@ public class Logic {
         if(life <= 5 ){
             try {
 
-                int population = raubtiere.getPopulation() - 1;
+                int population = raubtiere.getPopulation() - 2;
                 tableManager.getStmt().execute("UPDATE Zom_Raubtiere SET Population = " + population + ";");
                 raubtiere.updateInformations();
+
+                int bestand = nutztiere.getBestand() + life;
+                tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Bestand = " + bestand + ";");
+                nutztiere.updateInformations();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -530,19 +538,7 @@ public class Logic {
 
         }
 
-        if(life <= 3){
 
-            try {
-
-                int bestand = nutztiere.getBestand() + life;
-                tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Bestand = " + bestand + ";");
-                nutztiere.updateInformations();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-
-        }
 
     }
 
@@ -551,12 +547,12 @@ public class Logic {
 
         try {
 
-            if(raubtiere.getPopulation() > 0) {
+            if(raubtiere.getPopulation() >= 0 && nutztiere.getBestand() >= 0) {
 
-                int hunger = (int) (Math.random() * 11) + 1;
+                int hunger = (int) (Math.random() * 4) + 1;
                 tableManager.getStmt().execute("UPDATE Zom_Raubtiere SET Gefrässigkeit = " + hunger + ";");
 
-                int bestand = nutztiere.getBestand() - raubtiere.getGefraessigkeit() / 2;
+                int bestand = (nutztiere.getBestand() - raubtiere.getGefraessigkeit() / 2);
                 System.out.println(nutztiere.getBestand());
                 tableManager.getStmt().execute("UPDATE Zom_Nutztiere SET Bestand = " + bestand + ";");
 

@@ -48,7 +48,7 @@ public class TableManager {
             }
 
             stmt.execute("INSERT INTO Zom_Essen (Vorrat) " +
-                    "VALUES (20);");
+                    "VALUES (15);");
 
             stmt.execute("INSERT INTO Zom_Medikament (wirksamkeit,Vorrat) " +
                     "VALUES ("+(int)Math.random()*10+",10);");
@@ -57,7 +57,7 @@ public class TableManager {
                     "VALUES (10,10);");
 
             stmt.execute("INSERT INTO Zom_Raubtiere (Gefrässigkeit,Population) " +
-                    "VALUES (10,10);");
+                    "VALUES (0,10);");
 
             stmt.execute("INSERT INTO Zom_Wasserquelle (Vorrat) " +
                     "VALUES (10);");

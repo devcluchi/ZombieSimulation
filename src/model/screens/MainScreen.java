@@ -29,7 +29,7 @@ public class MainScreen extends GraphicalObject {
         image = createNewImage("assets/images/screens/main.png");
         uiController.drawObject(this);
         createButtons(uiController);
-        font = new Font("Comic Sans",Font.BOLD,28);
+        font = new Font("Comic Sans",Font.BOLD,40);
         killZombieMenu = false;
         notizen = new NotizenScreen(this);
         uiController.drawObject(notizen);
@@ -46,9 +46,16 @@ public class MainScreen extends GraphicalObject {
         drawTool.drawImage(image,0,0);
         drawTool.setCurrentColor(255,255,255,255);
         drawTool.setFont(font);
-        drawTool.drawText(350,80,"Tag: "+ days);
-        drawTool.drawText(250,80,""+logic.getLebendeMenschen());
-        drawTool.drawText(250,130,""+logic.getLebendeZombies());
+        drawTool.drawText(190,530,""+logic.getDurst());
+        drawTool.drawText(230,605,""+logic.getHunger());
+        drawTool.drawText(320,678,""+logic.getKrank());
+        drawTool.drawText(800,530,""+logic.getWasser());
+        drawTool.drawText(760,605,""+logic.getEssen());
+        drawTool.drawText(920,678,""+logic.getMedi());
+        drawTool.drawText(125,260,": "+days);
+        drawTool.drawText(265,333,""+logic.getLebendeMenschen());
+        drawTool.drawText(635,333,""+logic.getLebendeZombies());
+        drawTool.drawText(1050,333,""+ logic.getNutztierBestand());
         if(killZombieMenu){
             drawTool.drawFilledRectangle(200,200,500,300);
             drawTool.setCurrentColor(0,0,0,255);

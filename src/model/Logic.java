@@ -61,6 +61,7 @@ public class Logic {
         ResultSet results = tableManager.getStmt().executeQuery("SELECT * FROM Zom_Menschen;");
         while (results.next()){
             menschen.append(new Mensch(results.getInt("meID")));
+
         }
     }
 
@@ -208,6 +209,7 @@ public class Logic {
             System.err.println("Tabellen konnten nicht gelöscht werden: "+e.getMessage());
         }
     }
+
 
     public void tryToFeedHuman() {
         for (int j = 0; j < lebendeZombies; j++) {
@@ -360,7 +362,7 @@ public class Logic {
                 e.printStackTrace();
             }
             menschen.toFirst();
-            if (menschen.getContent().getDurst() >= 0 && menschen.getContent().isLebt()) {
+            if (menschen.getContent().getDurst() > 0 && menschen.getContent().isLebt()) {
                 try {
                     int durst = menschen.getContent().getDurst() - 1;
                     tableManager.getStmt().execute("UPDATE Zom_Menschen SET durst = " + durst + ";");
@@ -387,7 +389,7 @@ public class Logic {
             }
         }
         menschen.toFirst();
-        if (menschen.getContent().getHunger() >= 0 && menschen.getContent().isLebt()) {
+        if (menschen.getContent().getHunger() > 0 && menschen.getContent().isLebt()) {
             try {
                 int hunger = menschen.getContent().getHunger() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET hunger = " + hunger + ";");
@@ -412,7 +414,7 @@ public class Logic {
         }
 
         menschen.toFirst();
-        if (menschen.getContent().getKrankheit() >= 0 && menschen.getContent().isLebt()) {
+        if (menschen.getContent().getKrankheit() > 0 && menschen.getContent().isLebt()) {
             try {
                 int krank = menschen.getContent().getKrankheit() - 1;
                 tableManager.getStmt().execute("UPDATE Zom_Menschen SET krank = " + krank + ";");
@@ -481,6 +483,13 @@ public class Logic {
         return lebendeMenschen;
     }
 
+    public int getNutztierBestand(){
+
+        int bestand = nutztiere.getBestand();
+        return bestand;
+
+    }
+
     public int getLebendeZombies() {
         try {
             countZombies();
@@ -495,6 +504,87 @@ public class Logic {
        int waffenVorrat = waffen.getBestand();
 
        return waffenVorrat;
+
+    }
+
+    public int getWasser(){
+
+        int wasser = trinken.getVorrat();
+        return wasser;
+
+    }
+
+    public int getEssen(){
+
+        int eat = essen.getVorrat();
+        return eat;
+
+    }
+
+    public int getMedi(){
+
+        int medi = medikament.getVorrat();
+        return medi;
+
+    }
+
+    public int getHunger(){
+
+        ResultSet resultSet = null;
+        int hunger = 0;
+
+        try {
+
+            resultSet = getTableManager().getStmt().executeQuery("SELECT AVG(hunger) FROM Zom_Menschen WHERE lebt = 1;");
+            resultSet.next();
+            hunger = resultSet.getInt("AVG(hunger)");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return hunger;
+
+
+    }
+
+    public int getDurst(){
+
+        ResultSet resultSet = null;
+        int durst = 0;
+
+        try {
+
+            resultSet = getTableManager().getStmt().executeQuery("SELECT AVG(durst) FROM Zom_Menschen WHERE lebt = 1;");
+            resultSet.next();
+            durst = resultSet.getInt("AVG(durst)");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return durst;
+
+
+    }
+
+    public int getKrank(){
+
+        ResultSet resultSet = null;
+        int krank = 0;
+
+        try {
+
+            resultSet = getTableManager().getStmt().executeQuery("SELECT AVG(krank) FROM Zom_Menschen WHERE lebt = 1;");
+            resultSet.next();
+            krank = resultSet.getInt("AVG(krank)");
+            resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return krank;
+
 
     }
 

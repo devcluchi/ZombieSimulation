@@ -13,7 +13,7 @@ public class NotizenScreen extends GraphicalObject {
     private boolean visible;
     private BufferedImage background;
     private MainScreen mainScreen;
-    private String tiere, toteMenschen, essen, medikamente, waffen;
+    private String tiere, toteMenschen, essen, medikamente, waffen, hunger,durst,krank;
 
     public NotizenScreen(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
@@ -28,11 +28,11 @@ public class NotizenScreen extends GraphicalObject {
             drawTool.setCurrentColor(255,55,55,255);
             drawTool.drawFilledRectangle(150,100,500,500);
             drawTool.setCurrentColor(255,255,255,255);
-            drawTool.drawText(300,150,"Tiere: "+tiere);
-            drawTool.drawText(300,250,"getötete Menschen: "+toteMenschen);
-            drawTool.drawText(300,350,"Essen: "+essen);
-            drawTool.drawText(300,450,"Medikamente: "+medikamente);
-            drawTool.drawText(300,550,"Waffen: "+waffen);
+            //drawTool.drawText(250,150,"Tiere: "+tiere);
+            drawTool.drawText(200,250,"Durchschnitts Hunger: "+hunger);
+            drawTool.drawText(200,350,"Durchschnitts Durst: "+durst);
+            drawTool.drawText(200,450,"Durchschnitts Krankheit: "+krank);
+            //drawTool.drawText(250,550,"Waffen: "+waffen);
 
         }
     }
@@ -57,6 +57,16 @@ public class NotizenScreen extends GraphicalObject {
             resultSet = mainScreen.getLogic().getTableManager().getStmt().executeQuery("SELECT Vorrat FROM Zom_Medikament WHERE mID = 1;");
             resultSet.next();
             medikamente = resultSet.getString("Vorrat");
+            resultSet.next();
+            resultSet = mainScreen.getLogic().getTableManager().getStmt().executeQuery("SELECT AVG(hunger) FROM Zom_Menschen WHERE lebt = 1;");
+            resultSet.next();
+            hunger = resultSet.getString("AVG(hunger)");
+            resultSet = mainScreen.getLogic().getTableManager().getStmt().executeQuery("SELECT AVG(durst) FROM Zom_Menschen WHERE lebt = 1;");
+            resultSet.next();
+            durst = resultSet.getString("AVG(durst)");
+            resultSet = mainScreen.getLogic().getTableManager().getStmt().executeQuery("SELECT AVG(krank) FROM Zom_Menschen WHERE lebt = 1;");
+            resultSet.next();
+            krank = resultSet.getString("AVG(krank)");
             waffen = Integer.toString(mainScreen.getLogic().getWaffenVorrat());
         } catch (SQLException e) {
             e.printStackTrace();

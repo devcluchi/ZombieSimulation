@@ -86,14 +86,14 @@ public class MainScreen extends GraphicalObject {
         buttons[6] = new Button(895,15,"assets/images/buttons/foodBasic.png","assets/images/buttons/foodSelected.png");
         uiController.drawObject(buttons[6]);
 
-        buttons[7] = new Button(975,95,"assets/images/buttons/attackBasic.png","assets/images/buttons/attackSelected.png");
+        buttons[7] = new Button(975,95,"assets/images/buttons/animal.png","assets/images/buttons/animal.png");
         uiController.drawObject(buttons[7]);
 
-        buttons[8] = new Button(600,300,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
+        buttons[8] = new Button(600,300,"assets/images/buttons/attackBasic.png", "assets/images/buttons/attackSelected.png");
         uiController.drawObject(buttons[8]);
         buttons[8].setVisible(false);
 
-        buttons[9] = new Button(1135,95,"assets/images/buttons/mainScreenBasic_0.png", "assets/images/buttons/mainScreenSelected_0.png");
+        buttons[9] = new Button(1135,95,"assets/images/buttons/notes.png", "assets/images/buttons/notes.png");
         uiController.drawObject(buttons[9]);
 
         buttons[10] = new Button(100,100,"assets/images/buttons/closeBasic.png","assets/images/buttons/closeSelected.png");
